@@ -1,0 +1,9 @@
+# ベースイメージとして公式の PostgreSQL を使用
+FROM postgres:latest
+
+# 初期化スクリプトをコピーする（必要に応じて）
+COPY ./src/main/resources/schema.sql /docker-entrypoint-initdb.d/schema.sql
+COPY ./src/main/resources/data.sql /docker-entrypoint-initdb.d/data.sql
+
+# ポートの指定
+EXPOSE 5432

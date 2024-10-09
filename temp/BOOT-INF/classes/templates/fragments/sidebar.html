@@ -1,0 +1,14 @@
+<div th:fragment="sidebar">
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a th:href="@{/admin/orders}">注文</a>
+        <a th:href="@{/admin/management}">商品</a>
+        <a th:href="@{/admin/employees}">人事</a>
+        <a th:href="@{/admin/sales}">売上</a>
+        <a th:href="@{/admin/salesnew}">売上new</a>
+        <a th:href="@{/system/systeminfo}">SystemInfo</a>
+        <a th:href="@{/external/snowflakeinput}">SnowflakeConnector</a>
+        <a th:href="@{/audit/auditlog}">Auditlog</a>
+        <a th:href="@{/catalog/list}">商品リスト</a>
+    </div>
+</div>

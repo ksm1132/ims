@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: commonhead('Snowflaketest')}" ></head>
+<body>
+<div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
+<h1>Snowflake import test</h1>
+<div th:replace="~{fragments/header-right}"></div>
+<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+    <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
+</div>
+<div th:if="${#authorization.expression('hasRole(''ROLE_USER'') or hasRole(''ROLE_OAUTH2'')')}">
+    <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
+</div>
+<div class="container main-content">
+    <h2>Product table</h2>
+    <div th:if="${error}">
+        <p th:text="${error}" style="color: red"></p>
+    </div>
+    <table border="1" id="dataTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th th:each="key: ${snowData[0].keySet()}" th:text="${key}"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="row : ${snowData}">
+                <td th:each="value : ${row.values()}" th:text="${value}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
+</div>
+</body>
+</html>

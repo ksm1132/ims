@@ -1,0 +1,23 @@
+# ベースイメージとして OpenJDK を使用
+FROM openjdk:17-jdk-slim
+
+# 必要なパッケージをインストール
+RUN apt-get update && \
+    apt-get install -y libfreetype6-dev fonts-noto-cjk && \
+    rm -rf /var/lib/apt/lists/*
+
+    #  アプリケーションの作業ディレクトリを作成
+WORKDIR /app
+
+# ビルドした JAR ファイルをコンテナにコピー
+COPY target/inventorymgmtsys-0.0.1-SNAPSHOT.jar app.jar
+
+# 環境変数の設定
+ENV SPRING_PROFILES_ACTIVE=staging
+
+# アプリケーションを起動
+ENTRYPOINT ["java", "-Djava.awt.headless=true", "-jar", "app.jar"]
+
+# コンテナがリッスンするポートを指定
+EXPOSE 8080
+

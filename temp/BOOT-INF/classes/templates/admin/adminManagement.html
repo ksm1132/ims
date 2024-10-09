@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: commonhead('商品管理')}" ></head>
+<body>
+<div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
+<h1>商品管理</h1>
+<div th:replace="~{fragments/header-right}"></div>
+<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+    <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
+</div>
+<div th:if="${#authorization.expression('hasRole(''ROLE_USER'') or hasRole(''ROLE_OAUTH2'')')}">
+    <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
+</div>
+<div class="container main-content">
+    <h2>Product Table</h2>
+    <form th:action="@{/admin/update-products}" method="post" th:object="${productWrapper}">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <table>
+        <tr>
+            <th>商品名</th>
+            <th>価格(円)</th>
+            <th>在庫数(右端は現在の在庫数)</th>
+        </tr>
+        <tr th:each="prod, iterStat :${productWrapper.products}">
+            <td>
+                <input type="hidden" th:field="*{products[__${iterStat.index}__].id}" th:value="${prod.id}">
+                <input type="text" th:field="*{products[__${iterStat.index}__].name}" th:value="${prod.name}" required class="name-input">
+            </td>
+            <td>
+                <input type="number" th:field="*{products[__${iterStat.index}__].price}" th:value="${prod.price}" required class="price-input">
+            </td>
+            <td>
+                <input type="number" th:field="*{products[__${iterStat.index}__].stock}" th:value="${prod.stock}" min="1" required class="quantity-input">
+                <span th:text="${prod.stock}"></span>
+            </td>
+        </tr>
+    </table>
+        <div class="admin-button">
+            <input name="admin-update" type="submit" value="更新">
+        </div>
+    </form>
+    <div th:if="${successMessage}">
+        <p th:text="${successMessage}"></p>
+    </div>
+    <div th:if="${errorMessage}">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <h2>商品新規登録</h2>
+    <form th:action="@{/admin/add-product}" method="post" th:object="${newProduct}">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <table>
+            <tr>
+                <th>商品名</th>
+                <th>価格</th>
+                <th>在庫数</th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="hidden" th:field="*{id}"/>
+                    <input type="text" id="name" th:field="*{name}" required>
+                </td>
+                <td>
+                    <input type="number" id="price" th:field="*{price}" required>
+                </td>
+                <td>
+                    <input type="number" id="stock" th:field="*{stock}" required>
+                </td>
+            </tr>
+        </table>
+        <div class="admin-button">
+            <input name="admin-update" type="submit" value="新規登録">
+        </div>
+        <div th:if="${successMessage2}">
+            <p th:text="${successMessage2}"></p>
+        </div>
+        <div th:if="${errorMessage2}">
+            <p th:text="${errorMessage2}"></p>
+        </div>
+    </form>
+</div>
+</body>
+</html>

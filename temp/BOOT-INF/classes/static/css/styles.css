@@ -1,0 +1,535 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 40px; /* 上部にスペースを追加 */
+    margin-bottom: 20px;
+    text-align: center; /* テキストの中央揃え */
+    width: 100%; /* 幅を全体に広げる */
+}
+
+h2 {
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.container {
+    width: 100%; /* コンテナの幅を指定 */
+    max-width: 1400px; /* 最大幅を設定 */
+    text-align: center;
+}
+
+.hamburger-menu {
+    cursor: pointer;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+}
+
+.menu-bar {
+    width: 35px;
+    height: 5px;
+    background-color: #333;
+    margin: 6px 0;
+}
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #575757;
+}
+
+.closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.main-content {
+    margin-left: 20px; /* サイドバーの幅 */
+}
+
+.table-section {
+    width: 100%;
+    overflow-x: auto; /* テーブルが画面に収まりきらない場合に横スクロールを表示 */
+    margin-bottom: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center; /* セル内のテキストを中央揃え */
+}
+
+th {
+    background-color: #afeeee;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover {
+    color: #007bff;
+}
+
+
+.button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.remove-button {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+
+.remove-button:hover {
+    background-color: #c82333;
+}
+
+.summary-text {
+    text-align: left;
+}
+
+.placeorder {
+    display: block;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 10px;
+    width: 200px;
+    margin: 0 auto;
+}
+
+
+.placeorder:hover,
+.placeorderconfirm:hover,
+.correct:hover,
+.login-button:hover,
+input[name="placeorderconfirm"]:hover,
+input[name="correct"]:hover,
+input[name="correctproduct"]:hover {
+    background-color: #0056b3;
+}
+
+.admin-button,
+.button-section,
+.user-button {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+input[name="admin-update"],
+input[name="placeorderconfirm"],
+input[name="user-update"] {
+    display: inline-block;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    width: 200px;
+    margin: 0 auto;
+}
+
+input[name="connect"],
+input[name="correct"],
+input[name="correctproduct"] {
+    display: inline-block;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    width: 200px;
+    margin: 0 auto;
+}
+
+input[type="number"].quantity-input {
+    width: 40px;
+    text-align: right;
+}
+
+.login-container,
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-align: center;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-top: 100px auto 0;
+}
+
+.login-form,
+.register-form {
+    width: 100%;
+    text-align: center;
+}
+
+.login-form div,
+.register-form div {
+   display: flex;
+   align-items: center;
+   margin-bottom: 15px;
+}
+
+.login-form label,
+.register-form label {
+    flex: 1;
+    text-align: right;
+    align-items: center;
+    margin-bottom: 5px;
+    width: 20%;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"],
+.register-form input[type="text"],
+.register-form input[type="password"],
+.register-form input[type="email"] {
+    flex: 2;
+    align-items: center;
+    width: 50%; /* 必要に応じて調整 */
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 0px 60px 5px 10px;
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Center the button horizontally */
+    margin: 0 auto;
+}
+
+.login-button,
+.register-button {
+    width: 30%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.register-button:hover,
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+span.error-message {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.header-right {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.header-right form {
+    display: inline;
+}
+
+.back-link {
+    text-align: center;
+    width: 100%;
+}
+.back-link a {
+    display: inline-block;
+    text-decoration: none;
+    color: #333;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.back-link a:hover {
+    background-color: #0056b3;
+    color: #ffffff;
+}
+
+.oauth2 {
+    /* display: inline-flex; */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* text-align: center; */
+    text-align: left;
+    /*margin-right: 300px; */
+    /* margin-right: 0; */
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.oauth2 img {
+    width: 50px;
+    height: 50px;
+    margin: 0 10px 0 0;
+}
+
+.oauth2:hover {
+    background-color: #f1f1f1;
+}
+/* スマホ用のレスポンシブデザイン */
+@media (max-width: 768px) {
+    .oauth2 {
+        margin: 10px auto; /* 左右マージンを自動で調整 */
+    }
+
+    .oauth2 img {
+        margin: 0 auto; /* 画像を中央に配置 */
+    }
+}
+
+.forget {
+    text-align: right;
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 100%; /* これを追加して、要素全体を右寄せします */
+    display: flex;
+    justify-content: flex-end; /* テキストを右寄せします */
+}
+
+.newaccount,
+.forgetpassword {
+    color: green;
+}
+
+.snowflake-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.snowflake-form .form-group {
+    width: 60%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.snowflake-form label {
+    width: 30%;
+    text-align: right;
+    margin-right: 10px; /* ラベルと入力フィールドの間のスペース */
+}
+
+.snowflake-form input[type="text"],
+.snowflake-form input[type="password"] {
+    width: 70%; /* 必要に応じて調整 */
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* 全てのボタンに適用する基本スタイル */
+button {
+    background-color: #007bff; /* ボタンの背景色 */
+    border: none; /* ボーダーなし */
+    color: white; /* テキストの色 */
+    padding: 10px 20px; /* 上下、左右のパディング */
+    text-align: center; /* テキストの位置を中央に */
+    text-decoration: none; /* テキストの下線を削除 */
+    display: inline-block; /* インラインブロック表示 */
+    font-size: 16px; /* フォントサイズ */
+    margin: 4px 2px; /* 上下、左右のマージン */
+    cursor: pointer; /* カーソルをポインタに */
+    border-radius: 5px; /* ボタンの角を丸くする */
+    transition: background-color 0.3s ease; /* 背景色の遷移効果 */
+}
+
+/* ボタンのホバー時のスタイル */
+button:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+}
+
+/* ボタンのアクティブ時のスタイル */
+button:active {
+    background-color: #003d7a; /* クリック時の背景色 */
+    box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.125); /* クリック時のシャドウ */
+}
+
+/* ログアウトボタンのスタイル */
+.logout-button {
+    background-color: #dc3545; /* 背景色（赤） */
+    border: none; /* ボーダーなし */
+    color: white; /* テキストの色 */
+    padding: 10px 20px; /* 上下、左右のパディング */
+    text-align: center; /* テキストの位置を中央に */
+    text-decoration: none; /* テキストの下線を削除 */
+    display: inline-block; /* インラインブロック表示 */
+    font-size: 16px; /* フォントサイズ */
+    margin: 4px 2px; /* 上下、左右のマージン */
+    cursor: pointer; /* カーソルをポインタに */
+    border-radius: 5px; /* ボタンの角を丸くする */
+    transition: background-color 0.3s ease; /* 背景色の遷移効果 */
+}
+
+/* ログアウトボタンのホバー時のスタイル */
+.logout-button:hover {
+    background-color: #c82333; /* ホバー時の背景色（赤） */
+}
+
+/* ログアウトボタンのアクティブ時のスタイル */
+.logout-button:active {
+    background-color: #a71d2a; /* クリック時の背景色（赤） */
+    box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.125); /* クリック時のシャドウ */
+}
+
+.container pre {
+    white-space: pre-wrap; /* 折り返しを有効にする */
+    word-wrap: break-word; /* 長い単語を適切に折り返す */
+    overflow-wrap: break-word; /* 同様に長い単語を折り返す */
+    max-width: 100%; /* 親コンテナの幅を超えないようにする */
+}
+
+.success-message {
+    color: green;
+}
+
+.error-message {
+    color: red;
+}
+
+.forgetpassword {
+    /* text-align: right; */
+    white-space: nowrap;
+    display: inline-block;
+    /*margin: 0px 0px 0px 335px;*/
+    /* margin: 0; */
+    font-size: 14px;
+    padding: 5px;
+}
+
+.forgetpassword:hover {
+    text-decoration: underline; /* ホバー時に下線を追加 */
+}
+/* スマホ用のレスポンシブデザイン */
+@media (max-width: 768px) {
+    .forgetpassword {
+        font-size: 12px; /* スマホではフォントサイズを小さくする */
+        padding: 5px 0; /* パディングの調整 */
+    }
+}
+/* styles.css */
+.forgetPasswordForm {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px; /* 任意の最大幅 */
+    margin: 0 auto; /* 中央に配置 */
+}
+
+.forgetPasswordForm > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.forgetPasswordForm label {
+    margin-right: 10px; /* ラベルと入力の間隔 */
+    font-weight: bold;
+    width: 40%;
+}
+
+.forgetPasswordForm input {
+    padding: 8px;
+    font-size: 15px;
+    width: 60%; /* 入力フィールドを親の幅に合わせる */
+}
+
+.forgetPasswordForm button {
+    padding: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+
+.update-password-button button {
+        font-size: 15px;
+        cursor: pointer;
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+}

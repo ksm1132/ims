@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: commonhead('SnowflakeImport')}" ></head>
+<body>
+<div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
+<h1>Snowflake import</h1>
+<div th:replace="~{fragments/header-right}"></div>
+<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+    <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
+</div>
+<div th:if="${#authorization.expression('hasRole(''ROLE_USER'') or hasRole(''ROLE_OAUTH2'')')}">
+    <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
+</div>
+<div class="container main-content">
+    <h2>SnowFlake Connector</h2>
+    <button id="exportButton">Export to CSV</button>
+    <div th:if="${message}" th:text="${message}"></div>
+    <div th:if="${error}" th:text="${error}"></div>
+
+<div th:if="${snowData != null && !snowData.isEmpty()}">
+    <table border="1" id="dataTable" class="display">
+        <thead>
+        <tr>
+            <th th:each="header : ${snowData.get(0).keySet()}">
+                <span th:text="${header}"></span>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="row : ${snowData}">
+            <td th:each="value : ${row.values()}" th:text="${value}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:if="${snowData == null or snowData.isEmpty()}">
+    <p>データが存在しないか、指定したテーブル、スキーマ、DBなどに誤りがあります。</p>
+</div>
+    <a href="/external/snowflakeinput">Back</a></div>
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+    $('#exportButton').click(function() {
+        window.location.href = '/external/exportSnowflakeData';
+    });
+</script>
+</body>
+</html>
