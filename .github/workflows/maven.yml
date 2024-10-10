@@ -83,7 +83,7 @@ jobs:
       - name: Build Docker image
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        run: docker build -t ${DOCKER_USERNAME}/myfavariterepo:latest .
+        run: docker build -t ${DOCKER_USERNAME}/myfavariterepo:latest -f Dockerfile-app .
 
       - name: Push Docker image
         env:
