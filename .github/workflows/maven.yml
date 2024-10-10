@@ -59,8 +59,14 @@ jobs:
     - name: Build with Maven
       run: mvn clean package -Dtest=!OrderUiTest
 
-    - name: Verify JAR file
-      run: ls -la target
+    - name: Create staging directory and copy JAR file
+      run: mkdir staging && cp target/*.jar staging
+
+    - name: Upload JAR artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Package
+        path: staging
 
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
@@ -88,6 +94,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: Dockerfile-app
+          file: Dockerfile-app-gha
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/myfavoriterepo:latest
