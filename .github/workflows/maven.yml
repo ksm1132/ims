@@ -59,6 +59,10 @@ jobs:
     - name: Build with Maven
       run: mvn clean package -Dtest=!OrderUiTest
 
+    - name: Verify JAR file
+      run: ls -la target
+
+
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
 
     - name: Update dependency graph
@@ -80,12 +84,10 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker image
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        run: docker build -t ${DOCKER_USERNAME}/myfavariterepo:latest -f Dockerfile-app .
-
-      - name: Push Docker image
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        run: docker push ${DOCKER_USERNAME}/myfavariterepo:latest
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: Dockerfile-app
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/myfavoriterepo:latest
