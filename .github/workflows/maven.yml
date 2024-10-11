@@ -109,13 +109,23 @@ jobs:
           aws ecr get-login-password | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/ims-app
 
 
-      - name: Build and Push Docker image
+      - name: Build and Push App Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
           file: Dockerfile-app-gha
           push: true
-          tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/ims-app:latest
+          tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/ims-app:app-latest
+
+
+      - name: Build and Push PostgreSQL Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: Dockerfile-postgres-gha
+          push: true
+          tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/postgres-image:postgres-latest
+
 
 
 ###### for DockerHub
