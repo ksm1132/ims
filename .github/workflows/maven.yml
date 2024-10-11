@@ -97,12 +97,26 @@ jobs:
       - name: Check AWS CLI version
         run: aws --version
 
+      - name: Setup AWS configure
+        run: |
+          echo "[default]" > ~/.aws/config
+          echo "region=${{ secrets.AWS_DEFAULT_REGION }}" >> ~/.aws/config
+          echo "${{ secrets.AWS_ACCESS_KEY_ID }}" > ~/.aws/credentials
+          echo "${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
+          
+
+      - name: Verify AWS CLI
+        run: |
+          aws sts get-caller-identity
+
+
       - name: Log in to AWS ECR
         env:
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
         run: |
           aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/ims-app
+
 
       - name: Build and Push Docker image
         uses: docker/build-push-action@v4
