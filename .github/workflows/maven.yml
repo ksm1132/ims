@@ -89,11 +89,13 @@ jobs:
         with:
           name: Package
           path: staging  # stagingにアーティファクトをダウンロード
-      - name: Set up AWS CLI
-        run: |
-          wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -O awscliv2.zip
-          unzip awscliv2.zip
-          sudo ./aws/install
+#      - name: Set up AWS CLI
+#        run: |
+#          wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -O awscliv2.zip
+#          unzip awscliv2.zip
+#          sudo ./aws/install
+      - name: Check AWS CLI version
+        run: aws --version
 
       - name: Log in to AWS ECR
         env:
