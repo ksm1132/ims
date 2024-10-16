@@ -89,11 +89,7 @@ jobs:
         with:
           name: Package
           path: staging  # stagingにアーティファクトをダウンロード
-#      - name: Set up AWS CLI
-#        run: |
-#          wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -O awscliv2.zip
-#          unzip awscliv2.zip
-#          sudo ./aws/install
+
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -118,15 +114,15 @@ jobs:
           tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/ims-app:app-latest
 
 
-      - name: Build and Push PostgreSQL Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: Dockerfile-postgres-gha
-          push: true
-          tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/ims-app:postgres-latest
-
-
+#      - name: Build and Push PostgreSQL Docker image
+#        uses: docker/build-push-action@v4
+#        with:
+#          context: .
+#          file: Dockerfile-postgres-gha
+#          push: true
+#          tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/ims-app:postgres-latest
+#
+#
 
 ###### for DockerHub
 #      - name: Log in to Docker Hub
