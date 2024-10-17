@@ -114,15 +114,15 @@ jobs:
           tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/ims-app:app-latest
 
 
-#      - name: Build and Push PostgreSQL Docker image
-#        uses: docker/build-push-action@v4
-#        with:
-#          context: .
-#          file: Dockerfile-postgres-gha
-#          push: true
-#          tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/ims-app:postgres-latest
-#
-#
+      - name: Build and Push PostgreSQL Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: Dockerfile-postgres-gha
+          push: true
+          tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/ims-app:postgres-latest
+
+
 
 ###### for DockerHub
 #      - name: Log in to Docker Hub
