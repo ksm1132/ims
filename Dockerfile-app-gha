@@ -16,6 +16,7 @@ WORKDIR /app
 # アプリケーションJARをコンテナ内にコピー
 COPY staging/${APP_JAR} /app/app.jar
 
+
 # コンテナ起動時のエントリポイント
 ENTRYPOINT ["java", "-Djava.awt.headless=true", "-jar", "/app/app.jar", "--spring.profiles.active=staging"]
 
