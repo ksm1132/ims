@@ -96,6 +96,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
+      - name: Create imagedefinitions.json
+        run: |
+          echo '[{"name":"ims-app", "imageUri":"${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/ims-app:app-latest"}]' > imagedefinitions.json
+
       - name: Upload imagedefinitions.json to S3
         run: |
           aws s3 cp imagedefinitions.json s3://test-artifact-202410xx/ims-app/
@@ -128,9 +132,6 @@ jobs:
           push: true
           tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/ims-app:app-latest
 
-      - name: Create imagedefinitions.json
-        run: |
-          echo '[{"name":"ims-app", "imageUri":"${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/ims-app:app-latest"}]' > imagedefinitions.json
 
 
 #      - name: Build and Push PostgreSQL Docker image
