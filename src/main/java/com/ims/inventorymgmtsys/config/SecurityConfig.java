@@ -51,7 +51,7 @@ public class SecurityConfig {
         http
                 .requiresChannel()
                     .anyRequest()
-                    .requiresSecure()
+                    .requiresInsecure()
                 .and()
                 .authorizeHttpRequests()
                     .requestMatchers("/fragments/**","/js/**","/css/**","/images/**","/favicon.ico").permitAll()
