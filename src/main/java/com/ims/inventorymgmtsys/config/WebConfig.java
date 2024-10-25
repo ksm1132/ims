@@ -22,18 +22,21 @@ public class WebConfig implements WebMvcConfigurer {
                 .setCachePeriod(0);  // キャッシュを無効化
     }
 
-    @Bean
-    public FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() {
-        ForwardedHeaderFilter filter = new ForwardedHeaderFilter();
-        FilterRegistrationBean<ForwardedHeaderFilter> registration = new FilterRegistrationBean<>(filter);
-        registration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ASYNC, DispatcherType.ERROR);
-        registration.setOrder(Ordered.HIGHEST_PRECEDENCE); // 高優先度で実行
-        registration.setUrlPatterns(List.of("/*")); // アプリケーションの全てのリクエストに適用
-        return registration;
-    }
+//    @Bean
+//    public FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() {
+//        FilterRegistrationBean<ForwardedHeaderFilter> filterRegistrationBean = new FilterRegistrationBean<>(new ForwardedHeaderFilter());
+//        filterRegistrationBean.setOrder(0);
+//        return filterRegistrationBean;
+//    }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new CustomHeaderInterceptor()); // 先ほどのカスタムヘッダーインターセプター
-    }
+//    @Bean
+//    public FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() {
+//        ForwardedHeaderFilter filter = new ForwardedHeaderFilter();
+//        FilterRegistrationBean<ForwardedHeaderFilter> registration = new FilterRegistrationBean<>(filter);
+//        registration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ASYNC, DispatcherType.ERROR);
+//        registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
+//        registration.setUrlPatterns(List.of("/*"));
+//        return registration;
+//    }
+
 }
