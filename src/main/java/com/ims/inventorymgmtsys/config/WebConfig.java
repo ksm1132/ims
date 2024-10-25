@@ -29,14 +29,19 @@ public class WebConfig implements WebMvcConfigurer {
 //        return filterRegistrationBean;
 //    }
 
-//    @Bean
-//    public FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() {
-//        ForwardedHeaderFilter filter = new ForwardedHeaderFilter();
-//        FilterRegistrationBean<ForwardedHeaderFilter> registration = new FilterRegistrationBean<>(filter);
-//        registration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ASYNC, DispatcherType.ERROR);
-//        registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
-//        registration.setUrlPatterns(List.of("/*"));
-//        return registration;
-//    }
+    @Bean
+    public FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() {
+        ForwardedHeaderFilter filter = new ForwardedHeaderFilter();
+        FilterRegistrationBean<ForwardedHeaderFilter> registration = new FilterRegistrationBean<>(filter);
+        registration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ASYNC, DispatcherType.ERROR);
+        registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        registration.setUrlPatterns(List.of("/*"));
+        return registration;
+    }
 
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new CustomHeaderInterceptor()); // 先ほどのカスタムヘッダーインターセプター
+    }
 }
