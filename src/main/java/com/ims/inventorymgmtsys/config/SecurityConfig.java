@@ -84,9 +84,10 @@ public class SecurityConfig {
                 .exceptionHandling()
                     .accessDeniedPage("/access-denied")
                 .and()
-                .headers()
+                .headers(headers -> headers
                     .frameOptions().sameOrigin()  // フレーム内でH2コンソールを表示できるように設定
-                .and()
+                    .contentSecurityPolicy("default-src 'self'; script-src 'self'") // require-trusted-types-for を含めない
+                )
                 .requestCache().disable();
 
         http.userDetailsService(loginUserDetailService);
