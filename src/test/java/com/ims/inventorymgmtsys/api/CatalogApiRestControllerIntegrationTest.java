@@ -42,8 +42,8 @@ public class CatalogApiRestControllerIntegrationTest {
         )
                 .andExpect(status().isOk())
                     .andExpect(jsonPath("$[0].name").value("モンベル　ライトダウン"))
-                .andExpect(jsonPath("$[0].price").value(18700))
-                .andExpect(jsonPath("$[0].stock").value(10))
+                .andExpect(jsonPath("$[0].price").value(12000))
+                .andExpect(jsonPath("$[0].stock").value(50))
                 ;
     }
 
