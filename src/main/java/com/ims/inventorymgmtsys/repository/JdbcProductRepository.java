@@ -29,7 +29,7 @@ public class JdbcProductRepository implements ProductRepository{
 
     @Override
     public List<Product> findAll() {
-        return jdbcTemplate.query("SELECT * FROM t_product ORDER BY createdAt DESC", new DataClassRowMapper<>(Product.class));
+        return jdbcTemplate.query("SELECT * FROM t_product ORDER BY name DESC", new DataClassRowMapper<>(Product.class));
     }
 
     @Override
