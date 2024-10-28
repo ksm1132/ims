@@ -31,6 +31,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService{
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) {
         OAuth2User oAuth2User = super.loadUser(oAuth2UserRequest);
 
+        logger.info("OAuth2User attributes: {}", oAuth2User.getAttributes());
+
         String email = oAuth2User.getAttribute("email");
         String name = oAuth2User.getAttribute("name");
         Optional<User> userOptional = userRepository.findByEmail(email);
@@ -47,12 +49,14 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService{
             logger.info("new user created:" + email + " name is :" + name);
 
             Authorities authority = new Authorities();
-            authority.setUsername(name);
+//            authority.setUsername(name);
+            authority.setUsername(email);
             authority.setAuthority("ROLE_OAUTH2");
             authorityRepository.saveAuthority(authority);
 
         }
-        List<Authorities> authorities = authorityRepository.getRole(user.getUserName());
+//        List<Authorities> authorities = authorityRepository.getRole(user.getUserName());
+        List<Authorities> authorities = authorityRepository.getRole(email);
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(authorities.get(0).getAuthority());
 
         CustomOAuth2User customOAuth2User = new CustomOAuth2User(
