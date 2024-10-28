@@ -30,21 +30,14 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
 
-//    @Bean
-//    public FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() {
-//        ForwardedHeaderFilter filter = new ForwardedHeaderFilter();
-//        FilterRegistrationBean<ForwardedHeaderFilter> registration = new FilterRegistrationBean<>(filter);
-//        registration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ASYNC, DispatcherType.ERROR);
-//        registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
-//        registration.setUrlPatterns(List.of("/*"));
-//        return registration;
-//    }
-
     @Bean
     public FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() {
-        FilterRegistrationBean<ForwardedHeaderFilter> filterRegistrationBean = new FilterRegistrationBean<>(new ForwardedHeaderFilter());
-        filterRegistrationBean.setDispatcherTypes(EnumSet.of(DispatcherType.REQUEST, DispatcherType.ASYNC, DispatcherType.ERROR)); // EnumSetを使用
-        return filterRegistrationBean;
+        ForwardedHeaderFilter filter = new ForwardedHeaderFilter();
+        FilterRegistrationBean<ForwardedHeaderFilter> registration = new FilterRegistrationBean<>(filter);
+        registration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ASYNC, DispatcherType.ERROR);
+        registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        registration.setUrlPatterns(List.of("/*"));
+        return registration;
     }
 
 }
