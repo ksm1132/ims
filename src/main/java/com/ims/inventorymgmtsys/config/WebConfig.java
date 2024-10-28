@@ -45,16 +45,4 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new CustomHeaderInterceptor()); // 先ほどのカスタムヘッダーインターセプター
     }
 
-    @Bean
-    public OAuth2AuthorizedClientService authorizedClientService(
-            ClientRegistrationRepository clientRegistrationRepository) {
-        return new InMemoryOAuth2AuthorizedClientService(clientRegistrationRepository);
-    }
-
-    @Bean
-    public OAuth2AuthorizedClientManager authorizedClientManager(
-            ClientRegistrationRepository clientRegistrationRepository,
-            OAuth2AuthorizedClientRepository authorizedClientRepository) {
-        return new DefaultOAuth2AuthorizedClientManager(clientRegistrationRepository, authorizedClientRepository);
-    }
 }
