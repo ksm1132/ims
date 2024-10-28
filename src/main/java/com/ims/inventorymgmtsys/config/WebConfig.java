@@ -22,12 +22,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .setCachePeriod(0);  // キャッシュを無効化
     }
 
-//    @Bean
-//    public FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() {
-//        FilterRegistrationBean<ForwardedHeaderFilter> filterRegistrationBean = new FilterRegistrationBean<>(new ForwardedHeaderFilter());
-//        filterRegistrationBean.setOrder(0);
-//        return filterRegistrationBean;
-//    }
 
     @Bean
     public FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() {
