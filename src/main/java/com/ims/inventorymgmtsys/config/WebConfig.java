@@ -40,4 +40,9 @@ public class WebConfig implements WebMvcConfigurer {
         return registration;
     }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new CustomHeaderInterceptor()); // 先ほどのカスタムヘッダーインターセプター
+    }
+
 }
