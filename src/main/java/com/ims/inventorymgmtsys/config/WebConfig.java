@@ -16,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.EnumSet;
 import java.util.List;
 
 @Configuration
@@ -29,20 +30,21 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
 
+//    @Bean
+//    public FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() {
+//        ForwardedHeaderFilter filter = new ForwardedHeaderFilter();
+//        FilterRegistrationBean<ForwardedHeaderFilter> registration = new FilterRegistrationBean<>(filter);
+//        registration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ASYNC, DispatcherType.ERROR);
+//        registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
+//        registration.setUrlPatterns(List.of("/*"));
+//        return registration;
+//    }
+
     @Bean
     public FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() {
-        ForwardedHeaderFilter filter = new ForwardedHeaderFilter();
-        FilterRegistrationBean<ForwardedHeaderFilter> registration = new FilterRegistrationBean<>(filter);
-        registration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ASYNC, DispatcherType.ERROR);
-        registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        registration.setUrlPatterns(List.of("/*"));
-        return registration;
-    }
-
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new CustomHeaderInterceptor()); // 先ほどのカスタムヘッダーインターセプター
+        FilterRegistrationBean<ForwardedHeaderFilter> filterRegistrationBean = new FilterRegistrationBean<>(new ForwardedHeaderFilter());
+        filterRegistrationBean.setDispatcherTypes(EnumSet.of(DispatcherType.REQUEST, DispatcherType.ASYNC, DispatcherType.ERROR)); // EnumSetを使用
+        return filterRegistrationBean;
     }
 
 }
