@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -59,7 +60,10 @@ public class SecurityConfig {
                     .requestMatchers("/error").authenticated()  // /error へのアクセスを認証済みユーザーに制限
                     .anyRequest().authenticated()
                 .and()
-                .securityContext(securityContext -> securityContext.requireExplicitSave(false))
+                .csrf()
+                    .ignoringRequestMatchers("/api/**")
+                .and()
+                    .securityContext(securityContext -> securityContext.requireExplicitSave(false))
                 .formLogin()
                     .loginPage("/login")
                     .permitAll()
@@ -75,17 +79,16 @@ public class SecurityConfig {
                     .successHandler(customAuthenticationSuccessHandler)
                     .failureHandler(customAuthenticationFailureHandler)
                 .and()
-                .csrf()
-                    .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))// H2コンソールのCSRFを無視
-                    .ignoringRequestMatchers("/api/**")
+                    .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                .and()
+                .headers()
+                    .frameOptions().sameOrigin()
                 .and()
                     .httpBasic()
                 .and()
                 .exceptionHandling()
                     .accessDeniedPage("/access-denied")
-                .and()
-                .headers()
-//                    .frameOptions().sameOrigin()  // フレーム内でH2コンソールを表示できるように設定
                 .and()
                 .requestCache().disable();
 
