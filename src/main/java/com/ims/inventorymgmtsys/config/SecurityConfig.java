@@ -69,8 +69,9 @@ public class SecurityConfig {
                 .and()
                 .oauth2Login()
                     .loginPage("/login")
+                    .defaultSuccessUrl("/catalog/list", true)
                     .userInfoEndpoint()
-                    .userService(customOAuth2UserService)
+                        .userService(customOAuth2UserService)
                 .and()
                     .successHandler(customAuthenticationSuccessHandler)
                     .failureHandler(customAuthenticationFailureHandler)
@@ -89,7 +90,7 @@ public class SecurityConfig {
                 .and()
                 .requestCache().disable();
 
-//        http.userDetailsService(loginUserDetailService);
+        http.userDetailsService(loginUserDetailService);
         return http.build();
     }
     @Bean
