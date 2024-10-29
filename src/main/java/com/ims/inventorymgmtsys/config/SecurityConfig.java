@@ -86,7 +86,9 @@ public class SecurityConfig {
                     .accessDeniedPage("/access-denied")
                 .and()
                 .headers()
-//                    .frameOptions().sameOrigin()  // フレーム内でH2コンソールを表示できるように設定
+                    .xssProtection()
+                    .and()
+                    .frameOptions().sameOrigin()  // フレーム内でH2コンソールを表示できるように設定
                 .and()
                 .requestCache().disable();
 
