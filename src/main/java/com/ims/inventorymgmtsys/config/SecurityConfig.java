@@ -90,7 +90,7 @@ public class SecurityConfig {
                 .and()
                 .requestCache().disable();
 
-        http.userDetailsService(loginUserDetailService);
+//        http.userDetailsService(loginUserDetailService);
         return http.build();
     }
     @Bean
@@ -101,6 +101,11 @@ public class SecurityConfig {
     @Bean
     public TwoFactorAuthenticationCodeVerifier mfaFactorAuthenticationCodeVerifier() {
         return new TotpAuthenticationCodeVerifier();
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(loginUserDetailService);
     }
 
 }

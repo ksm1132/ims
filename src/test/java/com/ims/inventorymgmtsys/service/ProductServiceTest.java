@@ -37,15 +37,15 @@ public class ProductServiceTest {
     @Test
     void test_findAll() {
         List<Product> products = productService.findAll();
-        assertThat(products.get(0).getName()).isEqualTo("ASICS マジックスピード4");
+        assertThat(products.get(0).getName()).isEqualTo("モンベル　ライトダウン");
     }
 
     @Test
     void test_update() {
         List<Product> products = productService.findAll();
-        Map<String, Object> productMap = jdbcTemplate.queryForMap("SELECT * FROM t_product WHERE id = ?", products.get(3).getId());
-        assertThat(productMap.get("name")).isEqualTo("Patagonia フリース");
-        assertThat(productMap.get("price")).isEqualTo(20000);
-        assertThat(productMap.get("stock")).isEqualTo(40);
+        Map<String, Object> productMap = jdbcTemplate.queryForMap("SELECT * FROM t_product WHERE id = ?", products.get(0).getId());
+        assertThat(productMap.get("name")).isEqualTo("モンベル　ライトダウン");
+        assertThat(productMap.get("price")).isEqualTo(12000);
+        assertThat(productMap.get("stock")).isEqualTo(50);
     }
 }

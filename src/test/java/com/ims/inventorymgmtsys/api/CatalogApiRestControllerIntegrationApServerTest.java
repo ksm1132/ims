@@ -60,7 +60,7 @@ public class CatalogApiRestControllerIntegrationApServerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         Product[] products = responseEntity.getBody();
         assertThat(products.length).isEqualTo(7);
-        assertThat(products[0].getName()).isEqualTo("ASICS マジックスピード4");
+        assertThat(products[0].getName()).isEqualTo("モンベル　ライトダウン");
     }
 
 
