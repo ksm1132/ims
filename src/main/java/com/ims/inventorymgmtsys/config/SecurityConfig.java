@@ -51,7 +51,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests()
                     .requestMatchers("/fragments/**","/js/**","/css/**","/images/**","/favicon.ico").permitAll()
-                    .requestMatchers("/login", "/register","/forget","/password","/changePasswordNoLogin").permitAll()
+                    .requestMatchers("/login", "/register","/forget","/password","/changePasswordNoLogin","/oauth2/**").permitAll()
                     .requestMatchers("/catalog/**", "/order/**", "/cart/**","/user/**","/challenge/**","/enable-2fa/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER","OIDC_USER")
 //                .requestMatchers("/catalog/**", "/order/**", "/cart/**","/user/**","/challenge/**","/enable-2fa/**").permitAll()
                 .requestMatchers("/admin/**","/sales/**","/system/**","/api/**").hasAuthority("ROLE_ADMIN")
