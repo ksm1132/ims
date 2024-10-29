@@ -17,6 +17,6 @@ WORKDIR /app
 COPY target/${APP_JAR} /app/app.jar
 
 # コンテナ起動時のエントリポイント
-ENTRYPOINT ["java", "-Djava.awt.headless=true", "-jar", "/app/app.jar", "--spring.profiles.active=staging"]
+ENTRYPOINT ["java", "-Djava.awt.headless=true", "-jar", "/app/app.jar"]
 
 EXPOSE 8080

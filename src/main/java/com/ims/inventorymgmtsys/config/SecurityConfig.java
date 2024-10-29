@@ -52,8 +52,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                     .requestMatchers("/fragments/**","/js/**","/css/**","/images/**","/favicon.ico").permitAll()
                     .requestMatchers("/login", "/register","/forget","/password","/changePasswordNoLogin").permitAll()
-                    .requestMatchers("/catalog/**", "/order/**", "/cart/**","/user/**","/challenge/**","/enable-2fa/**").hasAnyRole("ADMIN", "USER","OAUTH2")
-                    .requestMatchers("/admin/**","/sales/**","/system/**","/api/**").hasAuthority("ROLE_ADMIN")
+                    .requestMatchers("/catalog/**", "/order/**", "/cart/**","/user/**","/challenge/**","/enable-2fa/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER","OIDC_USER")
+//                .requestMatchers("/catalog/**", "/order/**", "/cart/**","/user/**","/challenge/**","/enable-2fa/**").permitAll()
+                .requestMatchers("/admin/**","/sales/**","/system/**","/api/**").hasAuthority("ROLE_ADMIN")
                     .requestMatchers("/challenge/totp").access(new TwoFactorAuthorizationManager())
                     .requestMatchers("/h2-console/**").permitAll()  // H2コンソールへのアクセスを許可
                     .requestMatchers("/error").authenticated()  // /error へのアクセスを認証済みユーザーに制限
@@ -70,7 +71,7 @@ public class SecurityConfig {
                 .oauth2Login()
                     .loginPage("/login")
                     .userInfoEndpoint()
-                    .userService(customOAuth2UserService)
+//                    .userService(customOAuth2UserService)
                 .and()
                     .successHandler(customAuthenticationSuccessHandler)
                     .failureHandler(customAuthenticationFailureHandler)

@@ -1,6 +1,7 @@
 package com.ims.inventorymgmtsys.config;
 
 import jakarta.servlet.DispatcherType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,9 +34,11 @@ public class WebConfig implements WebMvcConfigurer {
         return registration;
     }
 
+    @Autowired
+    private UserInterceptor userInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new CustomHeaderInterceptor()); // 先ほどのカスタムヘッダーインターセプター
+        registry.addInterceptor(userInterceptor).addPathPatterns("/**"); // すべてのパスに適用
     }
 }

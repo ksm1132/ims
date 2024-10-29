@@ -23,6 +23,11 @@ services:
       - "${DB_HOSTS_PORT}:5432"
     networks:
       - my-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER}" ]
+      interval: 5s
+      timeout: 2s
+      retries: 5
 
 networks:
   my-network:
