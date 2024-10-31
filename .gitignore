@@ -40,4 +40,4 @@ build/
 .envbackup
 
 *.crt
-*.key
+*.key.envbackup
