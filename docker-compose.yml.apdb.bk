@@ -1,20 +1,4 @@
 services:
-  nginx:
-    build:
-      context: .
-      dockerfile: Dockerfile-nginx
-    ports:
-      - "${NGINX_HOSTS_PORT}:8888"   # HTTP
-      - "${NGINX_SSL_PORT}:18443"     # HTTPS
-    env_file:
-      - .env
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf  # Nginx設定ファイルのマウント
-    depends_on:
-      - app
-      - db
-    networks:
-      - my-network
   app:
     build:
       context: .

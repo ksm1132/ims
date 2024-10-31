@@ -128,7 +128,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: Dockerfile-app-gha
+          file: Dockerfile-nginx-app-gha
           push: true
           tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/ims-app:app-latest
 
@@ -149,7 +149,7 @@ jobs:
 #        uses: docker/build-push-action@v4
 #        with:
 #          context: .
-#          file: Dockerfile-postgres-gha
+#          file: Dockerfile-nginx-postgres-gha
 #          push: true
 #          tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/ims-app:postgres-latest
 #
@@ -166,6 +166,6 @@ jobs:
 #        uses: docker/build-push-action@v4
 #        with:
 #          context: .
-#          file: Dockerfile-app-gha
+#          file: Dockerfile-nginx-app-gha
 #          push: true
 #          tags: ${{ secrets.DOCKER_USERNAME }}/myfavoriterepo:latest
