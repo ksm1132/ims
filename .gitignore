@@ -37,7 +37,7 @@ build/
 
 #### Docker ###
 *.env
-*.envbackup
+.envbackup
 
 *.crt
 *.key
