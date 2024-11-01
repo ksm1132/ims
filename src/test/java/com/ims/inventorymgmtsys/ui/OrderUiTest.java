@@ -10,6 +10,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,7 +35,7 @@ public class OrderUiTest {
     void setup() {
 //        WebDriverManager.chromedriver().setup();
 //        WebDriver driver = new ChromeDriver();
-        Configuration.baseUrl = "http://localhost:" + randomPort;
+//        Configuration.baseUrl = "http://localhost:" + randomPort;
 //        Configuration.browser = "chrome";
 //        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\20240909\\chromedriver-win64\\chromedriver.exe");
 //        System.setProperty("webdriver.chrome.driver", "/home/mks/IdeaProjects/inventoryms/chromedriver-linux64/chromedriver");

@@ -41,3 +41,5 @@ build/
 
 *.crt
 *.key.envbackup
+*.csr
+*.key
