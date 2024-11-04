@@ -47,18 +47,40 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
     try {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        logger.info("Authenticated user roles: " + authentication.getAuthorities());
+        logger.info("Authenticated user roles::::::: " + authentication.getAuthorities());
 
         //OAuth2
         boolean isOAuth2 = authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_OAUTH2"));
+        logger.info("Is OAuth2 user:::::::::::: {}", isOAuth2);
 
         if (isOAuth2) {
             handleSuccessRedirect(request, response, authentication);
             return;
         }
 
-        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        // CustomUserDetails の取得
+        Object principal = authentication.getPrincipal();
+        logger.info("Authentication principal:::::: {}", principal);
+
+//        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        // CustomUserDetails へのキャスト
+        CustomUserDetails customUserDetails;
+        try {
+            customUserDetails = (CustomUserDetails) principal; // キャスト
+            logger.info("CustomUserDetails::::::::: {}", customUserDetails);
+        } catch (ClassCastException e) {
+            logger.error("Failed to cast principal to CustomUserDetails:::::::::: {}", e.getMessage(), e);
+            response.sendRedirect("/error");
+            return;
+        }
         User user = customUserDetails.getUser();
+        logger.info("User details:::::: {}", user);
+        if (user == null) {
+            logger.error("User is null for authenticated principal:::::::: {}", customUserDetails);
+            response.sendRedirect("/error");
+            return;
+        }
+
         if (user.getMfaEnabled()) {
             logger.info("MFA is required. Redirecting to MFA page");
             request.getSession().setAttribute("twoFactorAuthentication", auth);
