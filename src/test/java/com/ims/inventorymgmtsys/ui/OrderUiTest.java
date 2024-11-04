@@ -7,6 +7,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
@@ -35,7 +36,7 @@ public class OrderUiTest {
     void setup() {
 //        WebDriverManager.chromedriver().setup();
 //        WebDriver driver = new ChromeDriver();
-//        Configuration.baseUrl = "http://localhost:" + randomPort;
+        Configuration.baseUrl = "http://localhost:" + randomPort;
 //        Configuration.browser = "chrome";
 //        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\20240909\\chromedriver-win64\\chromedriver.exe");
 //        System.setProperty("webdriver.chrome.driver", "/home/mks/IdeaProjects/inventoryms/chromedriver-linux64/chromedriver");
@@ -44,6 +45,14 @@ public class OrderUiTest {
 
 
     }
+
+    @AfterEach
+    void tearDown() {
+        if (webDriver != null) {
+            webDriver.quit();
+        }
+    }
+
 
     private WebDriver webDriver;
 

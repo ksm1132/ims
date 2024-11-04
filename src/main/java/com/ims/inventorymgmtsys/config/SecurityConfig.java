@@ -60,7 +60,7 @@ public class SecurityConfig {
         http
                 .addFilterBefore(new ForwardedHeaderFilter(), WebAsyncManagerIntegrationFilter.class)
                 .cors(Customizer.withDefaults())
-                .csrf((csrf) -> csrf.disable())
+//                .csrf((csrf) -> csrf.disable())
                 .authorizeHttpRequests()
                     .requestMatchers("/fragments/**","/js/**","/css/**","/images/**","/favicon.ico").permitAll()
                     .requestMatchers("/login", "/register","/forget","/password","/changePasswordNoLogin").permitAll()
@@ -88,10 +88,9 @@ public class SecurityConfig {
                     .successHandler(customAuthenticationSuccessHandler)
                     .failureHandler(customAuthenticationFailureHandler)
                 .and()
-                .authorizeRequests(auth -> auth
-                        .requestMatchers("/api/**").authenticated()  // `/api/**`へのアクセスを認証にする
-                        .anyRequest().permitAll()                // その他のリクエストは全て許可
-                )
+                .csrf()
+                    .ignoringRequestMatchers("/api/**")                // その他のリクエストは全て許可
+                .and()
                     .httpBasic()
                 .and()
                 .exceptionHandling()
