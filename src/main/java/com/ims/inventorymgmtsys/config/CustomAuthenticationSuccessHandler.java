@@ -50,7 +50,8 @@ public void onAuthenticationSuccess(HttpServletRequest request, HttpServletRespo
         logger.info("Authenticated user roles::::::: " + authentication.getAuthorities());
 
         //OAuth2
-        boolean isOAuth2 = authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_OAUTH2"));
+//        boolean isOAuth2 = authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_OAUTH2"));
+        boolean isOAuth2 = authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("OIDC_USER"));
         logger.info("Is OAuth2 user:::::::::::: {}", isOAuth2);
 
         if (isOAuth2) {
