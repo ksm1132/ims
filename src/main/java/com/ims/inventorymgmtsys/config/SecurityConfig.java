@@ -68,7 +68,7 @@ public class SecurityConfig {
                     .requestMatchers("/admin/**","/sales/**","/system/**","/api/**").hasAuthority("ROLE_ADMIN")
                     .requestMatchers("/challenge/totp").access(new TwoFactorAuthorizationManager())
                     .requestMatchers("/h2-console/**").permitAll()  // H2コンソールへのアクセスを許可
-                    .requestMatchers("/error").authenticated()  // /error へのアクセスを認証済みユーザーに制限
+                    .requestMatchers("/error").permitAll() // /error へのアクセスを認証済みユーザーに制限
                     .anyRequest().authenticated()
                 .and()
                 .securityContext(securityContext -> securityContext.requireExplicitSave(false))
@@ -100,8 +100,8 @@ public class SecurityConfig {
                     .xssProtection()
                     .and()
                     .frameOptions().sameOrigin()  // フレーム内でH2コンソールを表示できるように設定
-                .and()
-                .requestCache().disable();
+                .and();
+//                .requestCache().disable();
 
         http.userDetailsService(loginUserDetailService);
         return http.build();
@@ -123,8 +123,9 @@ public class SecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+        String myappDomain = System.getenv("myappDomain");
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("null","localhost","https://localhost:18443", "http://localhost:8080"));
+        configuration.setAllowedOrigins(Arrays.asList("https://" + myappDomain, "http://" + myappDomain + ":8080", "null","localhost"));
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.setAllowCredentials(true);
@@ -143,6 +144,7 @@ public class SecurityConfig {
         registration.setUrlPatterns(List.of("/*"));
         return registration;
     }
+
 
 
 }
