@@ -51,7 +51,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService{
             Authorities authority = new Authorities();
             authority.setUsername(name);
 //            authority.setUsername(email);
-            authority.setAuthority("ROLE_OAUTH2");
+            authority.setAuthority("OIDC_USER");
             authorityRepository.saveAuthority(authority);
 
         }
