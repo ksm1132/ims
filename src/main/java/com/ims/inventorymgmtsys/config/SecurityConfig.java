@@ -66,7 +66,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                     .requestMatchers("/fragments/**","/js/**","/css/**","/images/**","/favicon.ico").permitAll()
                     .requestMatchers("/login", "/register","/forget","/password","/changePasswordNoLogin").permitAll()
-                    .requestMatchers("/catalog/**", "/order/**", "/cart/**","/user/**","/challenge/**","/enable-2fa/**").hasAnyRole("ADMIN", "USER","OAUTH2")
+                    .requestMatchers("/catalog/**", "/order/**", "/cart/**","/user/**","/challenge/**","/enable-2fa/**").hasAnyRole("ADMIN", "USER","OIDC_USER")
                     .requestMatchers("/admin/**","/sales/**","/system/**","/api/**").hasAuthority("ROLE_ADMIN")
                     .requestMatchers("/challenge/totp").access(new TwoFactorAuthorizationManager())
                     .requestMatchers("/h2-console/**").permitAll()  // H2コンソールへのアクセスを許可
