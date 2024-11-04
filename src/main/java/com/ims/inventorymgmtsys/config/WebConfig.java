@@ -38,10 +38,10 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
 
         String myappDomain = System.getenv("myappDomain");
-
+        System.out.println("myappDomain:::::::::::: " + myappDomain);
         registry.addMapping("/**")
 //                .allowedOrigins("null","127.0.0.1","localhost","https://localhost:18443","http://localhost:8080")
-                .allowedOrigins("null","127.0.0.1","localhost", "https://" + myappDomain ,"http://" + myappDomain + ":8080")
+                .allowedOrigins("https://" + myappDomain ,"http://" + myappDomain + ":8080", "null","127.0.0.1","localhost")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
