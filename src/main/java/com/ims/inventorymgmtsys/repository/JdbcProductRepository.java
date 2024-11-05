@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -32,8 +33,12 @@ public class JdbcProductRepository implements ProductRepository{
         return jdbcTemplate.query("SELECT * FROM t_product ORDER BY name DESC", new DataClassRowMapper<>(Product.class));
     }
 
+    @Transactional
     @Override
     public boolean update(Product product) {
+        // 行ロックを取得
+        jdbcTemplate.update("SELECT * FROM t_product WHERE id = ? FOR UPDATE", product.getId());
+
         int count = jdbcTemplate.update("UPDATE t_product SET name=?, price=?, stock=?, imgUrl=? WHERE id=?",
                 product.getName(),
                 product.getPrice(),
@@ -41,10 +46,7 @@ public class JdbcProductRepository implements ProductRepository{
                 product.getImgUrl(),
                 product.getId());
 
-        if (count == 0) {
-            return false;
-        }
-        return true;
+        return count != 0;
     }
 
     @Override

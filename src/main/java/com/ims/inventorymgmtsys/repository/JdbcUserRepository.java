@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -66,9 +67,11 @@ public class JdbcUserRepository implements UserRepository{
         }
     }
 
+    @Transactional
     @Override
     public boolean update(User user) {
-        System.out.println("Updating user with ID: " + user.getId());
+        System.out.println("Updating user with ID:::::: " + user.getId());
+        jdbcTemplate.update("SELECT * FROM t_user WHERE id = ?", user.getId());
         int count = jdbcTemplate.update("UPDATE t_user SET userName=?, emailAddress=?, address=?, phone=? WHERE id=?",
                 user.getUserName(),
                 user.getEmailAddress(),

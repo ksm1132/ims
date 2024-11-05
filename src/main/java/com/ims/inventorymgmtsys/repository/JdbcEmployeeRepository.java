@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -34,20 +35,17 @@ public class JdbcEmployeeRepository implements EmployeeRepository{
     public List<Employee> findAll() {
         return jdbcTemplate.query("SELECT * FROM employee", new DataClassRowMapper<>(Employee.class));
     }
-
+    @Transactional
     @Override
     public boolean update(Employee employee) {
+        jdbcTemplate.update("SELECT * FROM employee WHERE employeeid = ? FOR UPDATE", employee.getEmployeeId());
         int count = jdbcTemplate.update("UPDATE employee SET employeename=?, phone=?, emailaddress=? WHERE employeeid=?",
                 employee.getEmployeeName(),
                 employee.getPhone(),
                 employee.getEmailAddress(),
                 employee.getEmployeeId());
 
-        if ( count == 0) {
-            return false;
-        }
-
-        return true;
+        return count != 0;
     }
 
     @Override
