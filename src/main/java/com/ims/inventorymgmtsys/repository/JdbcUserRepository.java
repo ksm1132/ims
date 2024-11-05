@@ -71,7 +71,12 @@ public class JdbcUserRepository implements UserRepository{
     @Override
     public boolean update(User user) {
         System.out.println("Updating user with ID:::::: " + user.getId());
-        jdbcTemplate.update("SELECT * FROM t_user WHERE id = ?", user.getId());
+        jdbcTemplate.queryForObject(
+                "SELECT * FROM t_user WHERE id = ? FOR UPDATE",
+                new Object[]{user.getId()},
+                (rs, rowNum) -> user.getId()  // 必要な情報を返すために、RowMapperを簡単に指定
+        );
+
         int count = jdbcTemplate.update("UPDATE t_user SET userName=?, emailAddress=?, address=?, phone=? WHERE id=?",
                 user.getUserName(),
                 user.getEmailAddress(),

@@ -38,7 +38,12 @@ public class JdbcEmployeeRepository implements EmployeeRepository{
     @Transactional
     @Override
     public boolean update(Employee employee) {
-        jdbcTemplate.update("SELECT * FROM employee WHERE employeeid = ? FOR UPDATE", employee.getEmployeeId());
+        jdbcTemplate.queryForObject(
+                "SELECT * FROM employee WHERE id = ? FOR UPDATE",
+                new Object[]{employee.getEmployeeId()},
+                (rs, rowNum) -> employee.getEmployeeId()  // 必要な情報を返すために、RowMapperを簡単に指定
+        );
+
         int count = jdbcTemplate.update("UPDATE employee SET employeename=?, phone=?, emailaddress=? WHERE employeeid=?",
                 employee.getEmployeeName(),
                 employee.getPhone(),

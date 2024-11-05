@@ -11,6 +11,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,6 +27,7 @@ public class JdbcProductRepositoryTest {
     @BeforeEach
     void setUp() {
         productRepository = new JdbcProductRepository(jdbcTemplate);
+        jdbcTemplate.update("INSERT INTO t_product (name, price, stock) VALUES (?, ?, ?)","Test Product", 100, 10);
     }
 
     @Test
@@ -44,7 +46,7 @@ public class JdbcProductRepositoryTest {
     @Test
     void test_selectAll() {
         List<Product> products = productRepository.findAll();
-        assertThat(products.size()).isEqualTo(7);
+        assertThat(products.size()).isEqualTo(8);
     }
 
     @Test

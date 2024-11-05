@@ -37,7 +37,11 @@ public class JdbcProductRepository implements ProductRepository{
     @Override
     public boolean update(Product product) {
         // 行ロックを取得
-        jdbcTemplate.update("SELECT * FROM t_product WHERE id = ? FOR UPDATE", product.getId());
+        jdbcTemplate.queryForObject(
+                "SELECT * FROM t_product WHERE id = ? FOR UPDATE",
+                new Object[]{product.getId()},
+                (rs, rowNum) -> product.getId()  // 必要な情報を返すために、RowMapperを簡単に指定
+        );
 
         int count = jdbcTemplate.update("UPDATE t_product SET name=?, price=?, stock=?, imgUrl=? WHERE id=?",
                 product.getName(),
