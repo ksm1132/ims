@@ -1,6 +1,6 @@
 <div class="header-right" sec:authorize="isAuthenticated()">
-    こんにちは：<span sec:authentication="name"></span>さん
-<!--    こんにちは：<span th:text="${userName}"></span>さん-->
+    <!--    こんにちは：<span sec:authentication="name"></span>さん-->
+    こんにちは：<span th:text="${userName}"></span>さん
     <form th:action="@{/logout}" method="post" class="logout-form">
         <button type="submit" class="logout-button">Logout</button>
     </form>
