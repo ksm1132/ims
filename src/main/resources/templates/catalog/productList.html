@@ -3,6 +3,11 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/head :: commonhead('商品一覧')}" ></head>
 <body>
+<header>
+    <div class="logo">
+        <a href="productList.html"><img th:src="@{/images/ims-app.jpg}" alt="ims-app-image" class="header-image"></a>
+    </div>
+</header>
     <div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
     <h1>商品一覧</h1>
     <div th:replace="~{fragments/header-right}"></div>
