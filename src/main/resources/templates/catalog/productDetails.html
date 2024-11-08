@@ -1,47 +1,54 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="~{fragments/head :: commonhead('商品詳細')}" ></head>
-<body>
+<head th:replace="~{fragments/head :: commonhead('商品詳細')}"></head>
+<body id="product-details">
+<div th:replace="~{'fragments/header' :: header}"></div>
 <div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
-<h1>商品詳細</h1>
-<div th:replace="~{fragments/header-right}"></div>
 <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
     <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
 </div>
 <div th:if="${#authorization.expression('hasAnyAuthority(''ROLE_USER'', ''OIDC_USER'')')}">
     <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
 </div>
-<div class="container">
-        <table>
+<div id="wrap">
+    <div class="container">
+        <h1 class="icon">商品詳細</h1>
+        <table class="product-tbl">
             <tr>
-                <th>商品名</th><td><span th:text="${product.name}">商品名xxxxx</span></td>
+                <th>商品名</th>
+                <td class="nowrap"><span th:text="${product.name}">商品名xxxxx</span></td>
             </tr>
             <tr>
-                <th>価格</th><td><span th:text="${product.price}">xxx</span>円</td>
+                <th>価格</th>
+                <td><span th:text="${product.price}">xxx</span>円</td>
             </tr>
             <tr>
-                <th>在庫数</th><td><span th:text="${product.stock}">yyyy</span></td>
+                <th>在庫数</th>
+                <td><span th:text="${product.stock}">yyyy</span></td>
             </tr>
             <tr>
-                <th>商品画像</th><td><img th:src="${product.imgUrl}" alt="商品画像" style="width:100px;height:auto;" ></img></td>
+                <th>商品画像</th>
+                <td><img th:src="${product.imgUrl}" alt="商品画像" style="width:100px;height:auto;"></img></td>
             </tr>
         </table>
-</div>
-    <div>
-        <form th:action="@{/cart/add-item}" method="post" th:object="${cartItemInput}" >
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <input type="hidden" th:field="*{productId}" />
-            <div class="summary-text">
-                <label for="quantity" >数量:</label>
-                <input type="text" id="quantity" th:field="*{quantity}">
-                <span th:errors="*{quantity}"></span>
-            <input type="submit" value="カートに追加" class="button">
-            </div>
-        </form>
     </div>
+</div>
+<div>
+    <form th:action="@{/cart/add-item}" method="post" th:object="${cartItemInput}">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <input type="hidden" th:field="*{productId}"/>
+        <div class="summary-text">
+            <label for="quantity">数量:</label>
+            <input type="text" id="quantity" th:field="*{quantity}">
+            <span th:errors="*{quantity}"></span>
+            <input type="submit" value="カートに追加" class="button">
+        </div>
+    </form>
+</div>
 <div class="back-link">
     <a th:href="@{/catalog/list}">商品一覧に戻る</a>
 </div>
+<div th:replace="~{'fragments/footer' :: footer}"></div>
 </body>
 </html>
