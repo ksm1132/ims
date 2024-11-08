@@ -87,7 +87,8 @@ footer {
 
 #product-list .product-tbl th,
 #product-details .product-tbl th,
-#cart-item .product-tbl th{
+#cart-item .product-tbl th,
+#order-form .product-tbl th{
     background-color: #e8f5e9;
     padding: 0;
     border: 1px solid #cccccc;
@@ -97,7 +98,8 @@ footer {
 
 #product-list .product-tbl td,
 #product-details .product-tbl td,
-#cart-item .product-tbl td{
+#cart-item .product-tbl td,
+#order-form .product-tbl td{
     width: 300px;
     padding: 0;
     border: 1px solid #cccccc;
@@ -119,7 +121,7 @@ table {
 }
 
 
-#product-list, #product-details, #cart-item {
+#product-list, #product-details, #cart-item, #order-form {
     background-image: url(../images/ims-app-background.jpg);
     background-repeat: no-repeat;
     background-position: center top;
@@ -291,6 +293,7 @@ input.quantity-input {
     text-align: center;
     font-size: 18px;
     font-family: 'Bitter', serif;
+    width: 96%;
 }
 
 .back-link a {

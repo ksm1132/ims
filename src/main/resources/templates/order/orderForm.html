@@ -16,7 +16,7 @@
         <h1 class="icon">注文フォーム</h1>
         <form th:action="@{/order/orderconfirm}" method="post" th:object="${orderInput}">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-            <table class="product-tbl">
+            <table class="vertical-tbl">
                 <tr>
                     <th>氏名</th>
                     <td><input type="text" th:field="*{name}" required/>
