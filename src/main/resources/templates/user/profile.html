@@ -2,87 +2,94 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/head :: commonhead('Profile')}" ></head>
-<body>
+<body id="profile">
+<div th:replace="~{'fragments/header' :: header}"></div>
 <div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
-<h1>Profile</h1>
-<div th:replace="~{fragments/header-right}"></div>
 <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
     <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
 </div>
 <div th:if="${#authorization.expression('hasAnyAuthority(''ROLE_USER'', ''OIDC_USER'')')}">
     <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
 </div>
-<div class="container main-content">
-    <form th:action="@{/user/updateProfile}" method="post" th:object="${userProfile}">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <h2>User Profile</h2>
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <td>
-<!--                        <span th:text="${user.id}"></span>-->
-                        <span th:text="*{id}"></span>
-                        <input type="hidden" th:field="*{id}" >
-                    </td>
-                </tr>
-                <tr>
-                    <th>UserName</th>
-                    <td>
-                        <input type="text" th:field="*{userName}" id="username" name="username" required/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <td>
-                        <input type="text" th:field="*{emailAddress}" id="emailaddress" name="emailaddress" required/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Address</th>
-                    <td>
-                        <input type="text" th:field="*{address}" id="address" name="address" />
-                    </td>
-                </tr>
-                <tr>
-                    <th>Phone</th>
-                    <td>
-                        <input type="text" th:field="*{phone}" id="phone" name="phone" />
-                    </td>
-                </tr>
-            </table>
-        <div class="user-button">
-            <input name="user-update" type="submit" value="更新">
-        </div>
-        <div th:if="${successUpdateMessage}">
-            <p th:text="${successUpdateMessage}"></p>
-        </div>
-        <div th:if="${errorUpdateMessage}">
-            <p th:text="${errorUpdateMessage}"></p>
-        </div>
-    </form>
-    <div th:if="${not (isOAuth2User != null and isOAuth2User)}">
-    <h2>パスワード変更</h2>
-        <form th:action="@{/user/resetPassword}" method="post">
-            <div class="update-password-button">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <button type="submit">パスワードリセットリンクを送信</button>
+<div id="wrap">
+    <div class="container">
+        <h1 class="icon">Profile</h1>
+        <form th:action="@{/user/updateProfile}" method="post" th:object="${userProfile}">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <h2 class="icon2">User Profile</h2>
+                <table class="vertical-tbl">
+                    <tr>
+                        <th>ID</th>
+                        <td>
+    <!--                        <span th:text="${user.id}"></span>-->
+                            <span th:text="*{id}"></span>
+                            <input type="hidden" th:field="*{id}" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>UserName</th>
+                        <td>
+                            <input type="text" th:field="*{userName}" id="username" name="username" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>
+                            <input type="text" th:field="*{emailAddress}" id="emailaddress" name="emailaddress" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>
+                            <input type="text" th:field="*{address}" id="address" name="address" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td>
+                            <input type="text" th:field="*{phone}" id="phone" name="phone" />
+                        </td>
+                    </tr>
+                </table>
+            <div class="button-container">
+                <input name="user-update" type="submit" value="更新">
             </div>
-            <div th:if="${successMessage}">
-                <p th:text="${successMessage}"></p>
+            <div th:if="${successUpdateMessage}" class="message">
+                <p th:text="${successUpdateMessage}"></p>
             </div>
-            <div th:if="${errorMessage}">
-                <p th:text="${errorMessage}"></p>
+            <div th:if="${errorUpdateMessage}" class="message">
+                <p th:text="${errorUpdateMessage}"></p>
             </div>
         </form>
-        <h2>二要素認証設定</h2>
-        <form th:action="@{/mfa-enable-disable}" method="get" th:object="${userProfile}">
-            <input type="hidden" th:field="*{id}" />
-            <div class="update-password-button">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <button type="submit">2要素認証設定</button>
-            </div>
-        </form>
+        <div th:if="${not (isOAuth2User != null and isOAuth2User)}">
+            <section class="password-change clearfix">
+                <h2 class="icon2">パスワード変更</h2>
+                    <form th:action="@{/user/resetPassword}" method="post">
+                        <div class="button-container">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <button type="submit">リセットリンクを<br>送信</button>
+                        </div>
+                        <div th:if="${successMessage}">
+                            <p th:text="${successMessage}"></p>
+                        </div>
+                        <div th:if="${errorMessage}">
+                            <p th:text="${errorMessage}"></p>
+                        </div>
+                    </form>
+            </section>
+            <section class="2fa">
+            <h2 class="icon2">二要素認証</h2>
+                <form th:action="@{/mfa-enable-disable}" method="get" th:object="${userProfile}">
+                    <input type="hidden" th:field="*{id}" />
+                        <div class="button-container">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <button type="submit">設定</button>
+                        </div>
+                </form>
+            </section>
+        </div>
     </div>
 </div>
+<div th:replace="~{'fragments/footer' :: footer}"></div>
 </body>
 </html>

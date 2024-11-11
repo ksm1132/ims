@@ -1,75 +1,81 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/head :: commonhead('注文確認')}" ></head>
-<body>
+<body id="order-confirm">
+<div th:replace="~{'fragments/header' :: header}"></div>
 <div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
-<h1>注文確認</h1>
-<div th:replace="~{fragments/header-right}"></div>
 <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
     <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
 </div>
 <div th:if="${#authorization.expression('hasAnyAuthority(''ROLE_USER'', ''OIDC_USER'')')}">
     <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
 </div>
-<div class="container">
-        <form th:action="@{/order/placeorder}" method="post" th:object="${orderInput}">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <table>
+<div id="wrap">
+    <div class="container">
+        <h1 class="icon">注文確認</h1>
+            <form th:action="@{/order/placeorder}" method="post" th:object="${orderInput}">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <table class="vertical-tbl">
+                    <tr>
+                        <th>氏名</th>
+                        <td><span th:text="*{name}"></span></td>
+                    </tr>
+                    <tr>
+                        <th>住所</th>
+                        <td><span th:text="*{address}"></span></td>
+                    </tr>
+                    <tr>
+                        <th>電話番号</th>
+                        <td><span th:text="*{phone}"></span></td>
+                    </tr>
+                    <tr>
+                        <th>メールアドレス</th>
+                        <td><span th:text="*{emailAddress}"></span></td>
+                    </tr>
+                    <tr>
+                        <th>支払い方法</th>
+                        <td>
+                            <span th:if="*{paymentMethod != null && paymentMethod.toString() == 'BANK'}">銀行振込</span>
+                            <span th:if="*{paymentMethod != null && paymentMethod.toString() == 'CREDIT_CARD'}">クレジットカード</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>担当者</th>
+                        <td>
+                            <span th:text="${orderInput.employeeName}"></span>
+                        </td>
+                    </tr>
+                </table>
+            <table class="product-tbl">
                 <tr>
-                    <th>氏名</th>
-                    <td><span th:text="*{name}"></span></td>
+                    <th>商品名</th>
+                    <th>価格</th>
+                    <th>数量</th>
+                    <th>商品画像</th>
                 </tr>
-                <tr>
-                    <th>住所</th>
-                    <td><span th:text="*{address}"></span></td>
-                </tr>
-                <tr>
-                    <th>電話番号</th>
-                    <td><span th:text="*{phone}"></span></td>
-                </tr>
-                <tr>
-                    <th>メールアドレス</th>
-                    <td><span th:text="*{emailAddress}"></span></td>
-                </tr>
-                <tr>
-                    <th>支払い方法</th>
-                    <td>
-                        <span th:if="*{paymentMethod != null && paymentMethod.toString() == 'BANK'}">銀行振込</span>
-                        <span th:if="*{paymentMethod != null && paymentMethod.toString() == 'CREDIT_CARD'}">クレジットカード</span>
-                    </td>
-                </tr>
-                <tr>
-                    <th>担当者</th>
-                    <td>
-                        <span th:text="${orderInput.employeeName}"></span>
-                    </td>
+                <tr th:each="item:${cartInput.cartItemInputs}">
+                    <td th:text="${item.productName}"></td>
+                    <td><span th:text="${item.productPrice}"></span>円</td>
+                    <td th:text="${item.quantity}"></td>
+                    <td><img th:src="${item.imgUrl}" alt="商品画像" style="width:100px;height:auto;"></img></td>
                 </tr>
             </table>
-        <table>
-            <tr>
-                <th>商品名</th>
-                <th>価格</th>
-                <th>数量</th>
-                <th>商品画像</th>
-            </tr>
-            <tr th:each="item:${cartInput.cartItemInputs}">
-                <td th:text="${item.productName}"></td>
-                <td><span th:text="${item.productPrice}"></span>円</td>
-                <td th:text="${item.quantity}"></td>
-                <td><img th:src="${item.imgUrl}" alt="商品画像" style="width:100px;height:auto;"></img></td>
-            </tr>
-        </table>
-        <div class="summary-text">
-            <div>合計金額<span th:text="${cartInput.totalAmount}"></span>円</div>
-            <div>請求金額<span th:text="${cartInput.billingAmount}"></span>円（税込）</div>
+            <div class="placeorder-wrapper">
+                <div>合計金額<span th:text="${cartInput.totalAmount}"></span>円</div>
+                <div>請求金額<span th:text="${cartInput.billingAmount}"></span>円（税込）</div>
+            </div>
+        <div class="button-selection">
+            <input name="placeorderconfirm" type="submit" value="注文"  />
+            <input name="correct" type="submit" value="登録情報の変更"  />
+            <input name="correctproduct" type="submit" value="商品の変更へ戻る"  />
         </div>
-    <div class="button-selection">
-        <input name="placeorderconfirm" type="submit" value="注文"  />
-        <input name="correct" type="submit" value="登録情報の変更"  />
-        <input name="correctproduct" type="submit" value="商品の変更から戻る"  />
+        </form>
+        <div class="back-link">
+            <a th:href="@{/catalog/list}">商品一覧に戻る</a>
+        </div>
     </div>
-    </form>
 </div>
+<div th:replace="~{'fragments/footer' :: footer}"></div>
 </body>
 </html>

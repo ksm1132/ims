@@ -14,7 +14,7 @@
 <div id="wrap">
     <div class="container">
         <h1 class="icon">商品詳細</h1>
-        <table class="product-tbl">
+        <table class="vertical-tbl">
             <tr>
                 <th>商品名</th>
                 <td class="nowrap"><span th:text="${product.name}">商品名xxxxx</span></td>
@@ -45,9 +45,9 @@
             <input type="submit" value="カートに追加" class="button">
         </div>
     </form>
-</div>
-<div class="back-link">
-    <a th:href="@{/catalog/list}">商品一覧に戻る</a>
+    <div class="back-link">
+        <a th:href="@{/catalog/list}">商品一覧に戻る</a>
+    </div>
 </div>
 <div th:replace="~{'fragments/footer' :: footer}"></div>
 </body>
