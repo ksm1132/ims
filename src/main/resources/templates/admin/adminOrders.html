@@ -2,34 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/head :: commonhead('注文管理')}" ></head>
-<body>
+<body id="admin-orders">
+<div th:replace="~{'fragments/header' :: header}"></div>
 <div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
-<h1>注文管理</h1>
-<div th:replace="~{fragments/header-right}"></div>
 <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
   <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
 </div>
 <div th:if="${#authorization.expression('hasAnyAuthority(''ROLE_USER'', ''OIDC_USER'')')}">
   <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
 </div>
-<div class="container main-content">
-  <h2>Order Table</h2>
-  <table>
-    <tr>
-      <th>ORDER_ID(ID)</th>
-      <th>ORDER_DATE_TIME</th>
-      <th>CUSTOMER_NAME</th>
-      <th>EMPLOYEE_NAME</th>
-      <th>PAYMENT_METHOD</th>
-    </tr>
-    <tr th:each="odr:${orderList}">
-      <td><span th:text="${odr.orderId}"></span></td>
-      <td><span th:text="${odr.orderDateTime}"></span></td>
-      <td><span th:text="${odr.customerName}"></span></td>
-      <td><span th:text="${odr.employeeName}"></span></td>
-      <td><span th:text="${odr.paymentMethod}"></span></td>
-    </tr>
-  </table>
+<div id="wrap">
+  <div class="container">
+    <h1 class="icon">注文管理</h1>
+    <h2 class="icon2">Order Table</h2>
+    <table class="horizontal-tbl">
+      <tr>
+        <th>ORDER_ID(ID)</th>
+        <th>ORDER_DATE_TIME</th>
+        <th>CUSTOMER_NAME</th>
+        <th>EMPLOYEE_NAME</th>
+        <th>PAYMENT_METHOD</th>
+      </tr>
+      <tr th:each="odr:${orderList}">
+        <td><span th:text="${odr.orderId}"></span></td>
+        <td><span th:text="${odr.orderDateTime}"></span></td>
+        <td><span th:text="${odr.customerName}"></span></td>
+        <td><span th:text="${odr.employeeName}"></span></td>
+        <td><span th:text="${odr.paymentMethod}"></span></td>
+      </tr>
+    </table>
+  </div>
 </div>
+<div th:replace="~{'fragments/footer' :: footer}"></div>
 </body>
 </html>

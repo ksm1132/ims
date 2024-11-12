@@ -2,19 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/head :: commonhead('Error')}" ></head>
-<body>
+<body id="error">
+<div th:replace="~{'fragments/header' :: header}"></div>
 <div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
-<h1>Error</h1>
-<div th:replace="~{fragments/header-right}"></div>
 <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
     <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
 </div>
 <div th:if="${#authorization.expression('hasAnyAuthority(''ROLE_USER'', ''OIDC_USER'')')}">
     <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
 </div>
-<div class="container main-content">
-    <h2>Error</h2>
-    <p> エラーが発生しました。メニューから戻ってください</p>
+<div id="wrap">
+    <div class="container">
+        <h1 class="icon">Error</h1>
+        <p> エラーが発生しました。メニューから戻ってください</p>
+    </div>
 </div>
+<div th:replace="~{'fragments/footer' :: footer}"></div>
 </body>
 </html>

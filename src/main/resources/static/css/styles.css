@@ -1,29 +1,194 @@
+@charset "utf-8";
+
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    padding: 0;
+    background-color: #cccccc;
+    color: #333333;
+    font-size: 15px;
+    line-height: 2;
 }
 
-h1 {
-    margin-top: 40px; /* 上部にスペースを追加 */
-    margin-bottom: 20px;
-    text-align: center; /* テキストの中央揃え */
-    width: 100%; /* 幅を全体に広げる */
+p,h1,h2,h3,h4,h5,h6 {
+    margin-top: 0;
 }
 
-h2 {
-    text-align: left;
-    margin-bottom: 5px;
+header {
+    width: 96%;
+    height: 100px;
+    margin: 0 10px 0 auto;
+    font-family: 'Bitter', serif;
+}
+
+.logo {
+    float: left;
+    margin-top: 10px;
+}
+
+.header-image {
+    margin-top: 0;
+    width: 180px;
+    height: 70px;
+    object-fit: cover;
+    margin-left: 10px;
+}
+
+img {
+    vertical-align: bottom;
+}
+
+.header-right {
+    float: right;
+    margin-top: 10px;
+    font-family: 'Bitter', serif;
+    color: #ffffff;
+}
+
+.header-right .logout-button {
+    float: right;
+    margin-top: 0;
+}
+
+a {
+    color: #3583aa;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #788d98;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#wrap {
+    clear: both;
+    background-color: #ffffff;
+    margin: 100px auto 0;
+    padding: 10px 0;
+    width: 96%;
 }
 
 .container {
-    width: 100%; /* コンテナの幅を指定 */
-    max-width: 1400px; /* 最大幅を設定 */
+    width: 96%;
+    margin: 0 auto 0;
+}
+
+footer {
     text-align: center;
+    color: #ffffff;
+    padding: 20px 0;
+    width: 96%;
+    margin-top: 200px;
+}
+
+
+#product-list .horizontal-tbl th,
+#cart-item .horizontal-tbl th,
+#order-confirm .horizontal-tbl th,
+#order-list .horizontal-tbl th,
+#admin-employees .horizontal-tbl th,
+#admin-products .horizontal-tbl th,
+#admin-orders .horizontal-tbl th {
+    background-color: #e8f5e9;
+    padding: 0;
+    border: 1px solid #cccccc;
+    text-align: center;
+    font-size: 20px;
+}
+
+#product-list .horizontal-tbl td,
+#cart-item .horizontal-tbl td,
+#order-confirm .horizontal-tbl td,
+#order-list .horizontal-tbl td,
+#admin-employees .horizontal-tbl td,
+#admin-products .horizontal-tbl td,
+#admin-orders .horizontal-tbl td {
+    width: 300px;
+    padding: 0;
+    border: 1px solid #cccccc;
+    text-align: center;
+    font-size: 18px;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin: 40px auto 20px;
+    width: 96%;
+    text-align: center;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+
+#product-list, #product-details, #cart-item,
+#order-form, #order-confirm, #order-comp,
+#profile, #order-list, #password-reset, #admin-employees,
+#admin-products, #admin-orders, #admin-sales, #admin-sales-new,
+#admin-system-info, #admin-audit, #error, #get-snowflake, #snowflake-input,
+#snowflake-test {
+    background-image: url(../images/ims-app-background.jpg);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-attachment: fixed;
+    background-size: 100% auto;
+}
+
+h1 {
+    font-family: 'Bitter', serif;
+    font-size: 48px;
+    border-bottom: 1px solid #cccccc;
+    margin: 0 auto 40px;
+    width: 96%;
+    text-align: center;
+    line-height: 1;
+}
+
+h2 {
+    font-family: 'Bitter', serif;
+    font-size: 24px;
+    margin: auto;
+    border-bottom: 1px solid #cccccc;
+    text-align: left;
+    line-height: 1;
+    display: inline-block;
+    padding-bottom: 4px;
+}
+
+.icon:before {
+    content: "";
+    padding-right: 10px;
+    border-left: 7px solid #9cd4a4;
+}
+
+.icon2:before {
+    content: "";
+    padding-right: 10px;
+    border-left: 3px solid #9cd4a4;
+}
+
+.logout-button {
+    background-color: #ff6347;
+    color: #ffffff;
+    font-size: 20px;
+    font-family: 'Bitter', serif;
+    width: 100px;
+    display: block;
+    text-align: center;
+    line-height: 25px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 3px solid #ff6347;
+}
+
+.logout-button:hover {
+    text-decoration: none;
+    background-color: #ffffff;
+    color: #ff6347;
 }
 
 .hamburger-menu {
@@ -35,10 +200,11 @@ h2 {
 }
 
 .menu-bar {
-    width: 35px;
+    width: 30px;
     height: 5px;
-    background-color: #333;
+    background-color: #ffffff;
     margin: 6px 0;
+
 }
 
 .sidebar {
@@ -67,469 +233,402 @@ h2 {
     background-color: #575757;
 }
 
-.closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
-.main-content {
-    margin-left: 20px; /* サイドバーの幅 */
-}
-
-.table-section {
-    width: 100%;
-    overflow-x: auto; /* テーブルが画面に収まりきらない場合に横スクロールを表示 */
-    margin-bottom: 20px;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center; /* セル内のテキストを中央揃え */
-}
-
-th {
-    background-color: #afeeee;
-}
-
-a {
-    text-decoration: none;
-    color: #333;
-}
-
-a:hover {
-    color: #007bff;
-}
-
-
-.button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-}
-
-
-.button:hover {
-    background-color: #0056b3;
-}
-
-.remove-button {
-    display: inline-block;
-    padding: 5px 10px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-
-.remove-button:hover {
-    background-color: #c82333;
-}
-
 .summary-text {
-    text-align: left;
-}
-
-.placeorder {
-    display: block;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
     text-align: center;
-    margin-bottom: 10px;
-    width: 200px;
-    margin: 0 auto;
+    color: #ffffff;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.summary-text label {
+    font-size: 28px;
+    margin-right: 10px;
+}
+
+.summary-text input[type="text"] {
+    height: 30px;
+    width: 40px;
+    text-align: center;
+}
+
+.summary-text .button,
+.button-selection input[name="correctproduct"],
+.button-selection input[name="correct"],
+.button-container input[name="emailAddress"] {
+    background-color: #009cd3;
+    color: #ffffff;
+    font-size: 20px;
+    font-family: 'Bitter', serif;
+    width: 180px;
+    display: block;
+    text-align: center;
+    margin-left: 20px;
+    border-radius: 10px;
+    border: 3px solid #009cd3;
+}
+
+.button-container button[type="submit"] {
+    background-color: #009cd3;
+    color: #ffffff;
+    font-size: 20px;
+    font-family: 'Bitter', serif;
+    width: 180px;
+    display: block;
+    text-align: center;
+    border-radius: 10px;
+    border: 3px solid #009cd3;
 }
 
 
-.placeorder:hover,
-.placeorderconfirm:hover,
-.correct:hover,
-.login-button:hover,
-input[name="placeorderconfirm"]:hover,
-input[name="correct"]:hover,
-input[name="correctproduct"]:hover {
-    background-color: #0056b3;
+.summary-text .button:hover,
+.button-selection input[name="correctproduct"]:hover,
+.button-selection input[name="correct"]:hover,
+.button-container button[type="submit"]:hover {
+    text-decoration: none;
+    background-color: #ffffff;
+    color: #009cd3;
 }
 
-.admin-button,
-.button-section,
-.user-button {
+input.quantity-input {
+    height: 30px;
+    width: 40px;
+    text-align: center;
+}
+
+.placeorder-wrapper{
+    text-align: left;
+    margin: auto;
+    width: 96%;
+}
+
+.button-container,
+.button-selection {
     display: flex;
     justify-content: center;
-    gap: 10px;
-}
-input[name="admin-update"],
-input[name="placeorderconfirm"],
-input[name="user-update"] {
-    display: inline-block;
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    width: 200px;
-    margin: 0 auto;
+    margin-top: 10px;
 }
 
-input[name="connect"],
-input[name="correct"],
-input[name="correctproduct"] {
-    display: inline-block;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
+.placeorder,
+.button-selection input[name="placeorderconfirm"],
+.button-container input[name="user-update"],
+.button-container input[name="admin-update"],
+.button-container input[name="connect"],
+.button-container button[name="export"] {
+    background-color: #32cd32;
+    color: #ffffff;
+    font-size: 20px;
+    font-family: 'Bitter', serif;
+    width: 180px;
+    display: block;
     text-align: center;
-    width: 200px;
-    margin: 0 auto;
+    border-radius: 10px;
+    border: 3px solid #32cd32;
 }
 
-input[type="number"].quantity-input {
-    width: 40px;
-    text-align: right;
+.placeorder:hover,
+.button-selection input[name="placeorderconfirm"]:hover,
+.button-container input[name="user-update"]:hover,
+.button-container input[name="admin-update"]:hover,
+.button-container input[name="connect"]:hover,
+.button-container button[name="export"]:hover {
+    text-decoration: none;
+    background-color: #ffffff;
+    color: #32cd32;
 }
+
+.back-link,
+.login {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 18px;
+    font-family: 'Bitter', serif;
+    width: 100%;
+}
+
+.back-link a {
+    color: #000000;
+}
+#product-details .vertical-tbl th,
+#order-form .vertical-tbl th,
+#order-confirm .vertical-tbl th,
+#profile .vertical-tbl th {
+    background-color: #e8f5e9;
+    padding: 0;
+    border: 1px solid #cccccc;
+    text-align: center;
+    font-size: 28px;
+    width: auto;
+}
+
+#product-details .vertical-tbl td,
+#order-form .vertical-tbl td,
+#order-confirm .vertical-tbl td,
+#profile .vertical-tbl td {
+    width: auto;
+    padding: 0;
+    border: 1px solid #cccccc;
+    text-align: center;
+    font-size: 20px;
+}
+
+#order-form .vertical-tbl td input[type="text"],
+#order-form .vertical-tbl td select,
+#profile .vertical-tbl td input[type="text"] {
+    width: 100%;
+    padding: 4px;
+    box-sizing: border-box;
+    height: 40px;
+    font-size: 20px;
+}
+
+#order-comp .comp-message {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.login {
+    margin-top: 50px;
+}
+
+.oauth2-image {
+    margin-top: 0;
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+}
+
+#login body, #register body, #password-reset body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333333;
+    font-size: 15px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#login-wrap, #register-wrap, #password-wrap {
+    clear: both;
+    margin: 100px auto ;
+    width: 50%;
+    max-width: 500px;
+}
+
+#register-comp-wrap {
+    clear: both;
+    margin: 100px auto ;
+    width: 60%;
+    max-width: 500px;
+}
+
 
 .login-container,
-.register-container {
-    display: flex;
-    flex-direction: column;
-    align-align: center;
-    align-items: flex-start;
-    width: 100%;
-    max-width: 500px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.register-container,
+.password-container {
+    width: 80%;
+    padding: 2rem;
+    background: #fff;
     border-radius: 8px;
-    background-color: #f9f9f9;
-    margin-top: 100px auto 0;
-}
-
-.login-form,
-.register-form {
-    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
 
-.login-form div,
-.register-form div {
-   display: flex;
-   align-items: center;
-   margin-bottom: 15px;
+a.oauth2 {
+    display: flex;
+    justify-content: left;
+    margin-top: 50px;
 }
 
-.login-form label,
-.register-form label {
-    flex: 1;
-    text-align: right;
-    align-items: center;
-    margin-bottom: 5px;
-    width: 20%;
+.oauth2 span {
+    margin: auto 10px;
 }
+
+
+.login-form label,
+.register-form label,
+.newPassword label,
+.snowflake-form label {
+    font-size: 0.9rem;
+    color: #666;
+    display: block;
+    margin-bottom: 0;
+    text-align: left;
+    margin-left: 10%;
+}
+
 
 .login-form input[type="text"],
 .login-form input[type="password"],
 .register-form input[type="text"],
 .register-form input[type="password"],
-.register-form input[type="email"] {
-    flex: 2;
-    align-items: center;
-    width: 50%; /* 必要に応じて調整 */
-    padding: 5px;
+.register-form input[type="email"],
+.forgetPasswordForm input[type="email"],
+.snowflake-form input[type="text"],
+.snowflake-form input[type="password"] {
+    width: 80%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
     border: 1px solid #ddd;
     border-radius: 4px;
-    margin: 0px 60px 5px 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus,
+.register-form input[type="text"]:focus,
+.register-form input[type="password"]:focus,
+.register-form input[type="email"]:focus,
+.forgetPasswordForm input[type="email"]:focus,
+.snowflake-form input[type="text"]:focus,
+.snowflake-form input[type="password"]:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+.register-success {
+    font-size: 24px;
+    font-family: 'Bitter', serif;
+}
+
+.register-success:before {
+    content: "";
+    padding-right: 10px;
+    border-left: 7px solid #3CB371;
+}
+
+.register-success:after {
+    content: "";
+    padding-left: 10px;
+    border-right: 7px solid #3CB371;
+}
+
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
 }
 
 .button-container {
-    width: 100%;
-    display: flex;
-    justify-content: center; /* Center the button horizontally */
-    margin: 0 auto;
+    margin-top: 1rem;
 }
 
 .login-button,
-.register-button {
-    width: 30%;
-    padding: 10px;
-    background-color: #007bff;
+.register-button,
+.resetButton button[type="submit"] {
+    width: 80%;
+    padding: 0.8rem;
+    font-size: 1rem;
     color: white;
+    background-color: #3498db;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
-    text-align: center;
-    border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
+.login-button:hover,
 .register-button:hover,
-.login-button:hover {
-    background-color: #0056b3;
+.resetButton button[type="submit"]:hover {
+    background-color: #2980b9;
 }
 
-span.error-message {
-    color: red;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.header-right {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
-.header-right form {
-    display: inline;
-}
-
-.back-link {
-    text-align: center;
-    width: 100%;
-}
-.back-link a {
-    display: inline-block;
+.forgetpassword {
+    font-size: 0.85rem;
+    color: #3498db;
     text-decoration: none;
-    color: #333;
-    padding: 10px;
-    background-color: #f1f1f1;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-top: 20px;
-}
-
-.back-link a:hover {
-    background-color: #0056b3;
-    color: #ffffff;
-}
-
-.oauth2 {
-    /* display: inline-flex; */
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    /* text-align: center; */
-    text-align: left;
-    /*margin-right: 300px; */
-    /* margin-right: 0; */
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.oauth2 img {
-    width: 50px;
-    height: 50px;
-    margin: 0 10px 0 0;
-}
-
-.oauth2:hover {
-    background-color: #f1f1f1;
-}
-/* スマホ用のレスポンシブデザイン */
-@media (max-width: 768px) {
-    .oauth2 {
-        margin: 10px auto; /* 左右マージンを自動で調整 */
-    }
-
-    .oauth2 img {
-        margin: 0 auto; /* 画像を中央に配置 */
-    }
-}
-
-.forget {
-    text-align: right;
-    margin-top: 10px;
-    margin-right: 10px;
-    width: 100%; /* これを追加して、要素全体を右寄せします */
-    display: flex;
-    justify-content: flex-end; /* テキストを右寄せします */
-}
-
-.newaccount,
-.forgetpassword {
-    color: green;
-}
-
-.snowflake-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.snowflake-form .form-group {
-    width: 60%;
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10px;
-}
-
-.snowflake-form label {
-    width: 30%;
-    text-align: right;
-    margin-right: 10px; /* ラベルと入力フィールドの間のスペース */
-}
-
-.snowflake-form input[type="text"],
-.snowflake-form input[type="password"] {
-    width: 70%; /* 必要に応じて調整 */
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-/* 全てのボタンに適用する基本スタイル */
-button {
-    background-color: #007bff; /* ボタンの背景色 */
-    border: none; /* ボーダーなし */
-    color: white; /* テキストの色 */
-    padding: 10px 20px; /* 上下、左右のパディング */
-    text-align: center; /* テキストの位置を中央に */
-    text-decoration: none; /* テキストの下線を削除 */
-    display: inline-block; /* インラインブロック表示 */
-    font-size: 16px; /* フォントサイズ */
-    margin: 4px 2px; /* 上下、左右のマージン */
-    cursor: pointer; /* カーソルをポインタに */
-    border-radius: 5px; /* ボタンの角を丸くする */
-    transition: background-color 0.3s ease; /* 背景色の遷移効果 */
-}
-
-/* ボタンのホバー時のスタイル */
-button:hover {
-    background-color: #0056b3; /* ホバー時の背景色 */
-}
-
-/* ボタンのアクティブ時のスタイル */
-button:active {
-    background-color: #003d7a; /* クリック時の背景色 */
-    box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.125); /* クリック時のシャドウ */
-}
-
-/* ログアウトボタンのスタイル */
-.logout-button {
-    background-color: #dc3545; /* 背景色（赤） */
-    border: none; /* ボーダーなし */
-    color: white; /* テキストの色 */
-    padding: 10px 20px; /* 上下、左右のパディング */
-    text-align: center; /* テキストの位置を中央に */
-    text-decoration: none; /* テキストの下線を削除 */
-    display: inline-block; /* インラインブロック表示 */
-    font-size: 16px; /* フォントサイズ */
-    margin: 4px 2px; /* 上下、左右のマージン */
-    cursor: pointer; /* カーソルをポインタに */
-    border-radius: 5px; /* ボタンの角を丸くする */
-    transition: background-color 0.3s ease; /* 背景色の遷移効果 */
-}
-
-/* ログアウトボタンのホバー時のスタイル */
-.logout-button:hover {
-    background-color: #c82333; /* ホバー時の背景色（赤） */
-}
-
-/* ログアウトボタンのアクティブ時のスタイル */
-.logout-button:active {
-    background-color: #a71d2a; /* クリック時の背景色（赤） */
-    box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.125); /* クリック時のシャドウ */
-}
-
-.container pre {
-    white-space: pre-wrap; /* 折り返しを有効にする */
-    word-wrap: break-word; /* 長い単語を適切に折り返す */
-    overflow-wrap: break-word; /* 同様に長い単語を折り返す */
-    max-width: 100%; /* 親コンテナの幅を超えないようにする */
-}
-
-.success-message {
-    color: green;
-}
-
-.error-message {
-    color: red;
-}
-
-.forgetpassword {
-    /* text-align: right; */
-    white-space: nowrap;
-    display: inline-block;
-    /*margin: 0px 0px 0px 335px;*/
-    /* margin: 0; */
-    font-size: 14px;
-    padding: 5px;
 }
 
 .forgetpassword:hover {
-    text-decoration: underline; /* ホバー時に下線を追加 */
-}
-/* スマホ用のレスポンシブデザイン */
-@media (max-width: 768px) {
-    .forgetpassword {
-        font-size: 12px; /* スマホではフォントサイズを小さくする */
-        padding: 5px 0; /* パディングの調整 */
-    }
-}
-/* styles.css */
-.forgetPasswordForm {
-    display: flex;
-    flex-direction: column;
-    max-width: 500px; /* 任意の最大幅 */
-    margin: 0 auto; /* 中央に配置 */
+    text-decoration: underline;
 }
 
-.forgetPasswordForm > div {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
-    width: 100%;
+.register {
+    margin-top: 1rem;
 }
 
-.forgetPasswordForm label {
-    margin-right: 10px; /* ラベルと入力の間隔 */
-    font-weight: bold;
+.newaccount {
+    font-size: 0.9rem;
+    color: #3498db;
+    text-decoration: none;
+}
+
+.newaccount:hover {
+    text-decoration: underline;
+}
+
+#profile .password-change {
     width: 40%;
+    float: left;
 }
 
-.forgetPasswordForm input {
-    padding: 8px;
-    font-size: 15px;
-    width: 60%; /* 入力フィールドを親の幅に合わせる */
+#profile .2fa {
+    width: 40%;
+    float: right;
 }
 
-.forgetPasswordForm button {
-    padding: 10px;
-    font-size: 15px;
-    cursor: pointer;
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+#profile form {
+    margin-bottom: 100px;
+}
+
+.message {
+    text-align: center;
+    font-size: 24px;
+}
+
+.access-deny span,
+.access-deny a {
     text-align: center;
     display: block;
-    margin: 0 auto;
 }
 
-.update-password-button button {
-        font-size: 15px;
-        cursor: pointer;
-        text-align: center;
-        display: block;
-        margin: 0 auto;
+.graph-section {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    padding: 20px 30% 20px 0;
+}
+
+.graph-section h2 {
+    margin-top: 0;
+    margin-right: 0;
+    width: 20%;
+
+}
+
+.graph-section img {
+    max-width: 90%;
+    width: 60%;
+    height: 60%;
+}
+
+#admin-sales-new canvas,
+#admin-system-info canvas {
+    margin: 0 5% 50px;
+}
+
+#snowflake-input .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 20%;
+}
+
+label {
+    margin: auto;
 }

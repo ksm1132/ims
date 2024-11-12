@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/head :: commonhead('Login')}" ></head>
-<body>
-<div class="login-container">
-<h1>loginForm</h1>
-    <a class="oauth2" th:href="@{/oauth2/authorization/google}">
-        <img th:src="@{/images/google_icon.png}"/>Login with Google
-    </a>
-    <form th:action="@{/login}" method="post" class="login-form">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <div>
-            <span th:text="${failureMessage}" class="error-message"></span>
-        </div>
-        <div>
-            <label for="username">username:</label>
-            <input type="text" id="username" name="username">
-        </div>
-        <div>
-            <label for="password">password:</label>
-            <input type="password" id="password" name="password">
-        </div>
-        <div class="forget">
-            <a class="forgetpassword" th:href="@{/forget}">Forgot your Password?</a>
-        </div>
-        <div class="button-container">
-            <input type="submit" value="Login" class="login-button" />
-        </div>
-        <div class="register">
-            <a class="newaccount" th:href="@{/register}">Sign Up</a>
-        </div>
-    </form>
+<body id="login">
+<div id="login-wrap">
+    <div class="login-container">
+        <h1 class="icon">loginForm</h1>
+        <a class="oauth2" th:href="@{/oauth2/authorization/google}">
+            <img class="oauth2-image" th:src="@{/images/google_icon.png}"/>
+            <span>Login with Google</span>
+        </a>
+        <form th:action="@{/login}" method="post" class="login-form">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <div>
+                <span th:text="${failureMessage}" class="error-message"></span>
+            </div>
+            <div>
+                <label for="username">username</label>
+                <input type="text" id="username" name="username">
+            </div>
+            <div>
+                <label for="password">password</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <div class="forget">
+                <a class="forgetpassword" th:href="@{/forget}">Forgot your Password?</a>
+            </div>
+            <div class="button-container">
+                <input type="submit" value="Login" class="login-button" />
+            </div>
+            <div class="register">
+                <a class="newaccount" th:href="@{/register}">Sign Up</a>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 </html>
