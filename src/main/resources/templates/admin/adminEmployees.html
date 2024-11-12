@@ -17,7 +17,7 @@
     <form th:action="@{/admin/update-employees}" method="post" th:object="${employeeWrapper}">
       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
       <h2 class="icon2">Employee Table</h2>
-      <table class="product-tbl">
+      <table class="horizontal-tbl">
         <tr>
           <th>従業員番号</th>
           <th>氏名</th>
@@ -44,16 +44,16 @@
         <input name="admin-update" type="submit" value="更新">
       </div>
     </form>
-    <div th:if="${successMessage}">
+    <div th:if="${successMessage}" class="message">
       <p th:text="${successMessage}"></p>
     </div>
-    <div th:if="${errorMessage}">
+    <div th:if="${errorMessage}" class="message">
       <p th:text="${errorMessage}"></p>
     </div>
     <h2 class="icon2">人事データ新規登録</h2>
     <form th:action="@{/admin/add-employee}" method="post" th:object="${newEmployee}">
       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-      <table class="product-tbl">
+      <table class="horizontal-tbl">
         <tr>
           <th>氏名</th>
           <th>電話番号</th>
@@ -75,14 +75,15 @@
       <div class="button-container">
         <input name="admin-update" type="submit" value="新規登録">
       </div>
-      <div th:if="${successMessage2}">
+      <div th:if="${successMessage2}" class="message">
         <p th:text="${successMessage2}"></p>
       </div>
-      <div th:if="${errorMessage2}">
+      <div th:if="${errorMessage2}" class="message">
         <p th:text="${errorMessage2}"></p>
       </div>
     </form>
   </div>
 </div>
+<div th:replace="~{'fragments/footer' :: footer}"></div>
 </body>
 </html>

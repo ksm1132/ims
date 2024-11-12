@@ -2,38 +2,41 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/head :: commonhead('Snowflaketest')}" ></head>
-<body>
+<body id="snowflake-test">
+<div th:replace="~{'fragments/header' :: header}"></div>
 <div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
-<h1>Snowflake import test</h1>
-<div th:replace="~{fragments/header-right}"></div>
 <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
     <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
 </div>
 <div th:if="${#authorization.expression('hasAnyAuthority(''ROLE_USER'', ''OIDC_USER'')')}">
     <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
 </div>
-<div class="container main-content">
-    <h2>Product table</h2>
-    <div th:if="${error}">
-        <p th:text="${error}" style="color: red"></p>
+<div id="wrap">
+    <div class="container">
+        <h1 class="icon">Snowflake import test</h1>
+        <h2 class="icon2">Product table</h2>
+        <div th:if="${error}">
+            <p th:text="${error}" style="color: red"></p>
+        </div>
+        <table border="1" id="dataTable" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th th:each="key: ${snowData[0].keySet()}" th:text="${key}"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="row : ${snowData}">
+                    <td th:each="value : ${row.values()}" th:text="${value}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <script>
+            $(document).ready(function() {
+                $('#dataTable').DataTable();
+            });
+        </script>
     </div>
-    <table border="1" id="dataTable" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th th:each="key: ${snowData[0].keySet()}" th:text="${key}"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="row : ${snowData}">
-                <td th:each="value : ${row.values()}" th:text="${value}"></td>
-            </tr>
-        </tbody>
-    </table>
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable();
-        });
-    </script>
 </div>
+<div th:replace="~{'fragments/footer' :: footer}"></div>
 </body>
 </html>

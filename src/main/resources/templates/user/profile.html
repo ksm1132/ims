@@ -69,10 +69,10 @@
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <button type="submit">リセットリンクを<br>送信</button>
                         </div>
-                        <div th:if="${successMessage}">
+                        <div th:if="${successMessage}" class="message">
                             <p th:text="${successMessage}"></p>
                         </div>
-                        <div th:if="${errorMessage}">
+                        <div th:if="${errorMessage}" class="message">
                             <p th:text="${errorMessage}"></p>
                         </div>
                     </form>

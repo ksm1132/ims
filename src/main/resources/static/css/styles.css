@@ -84,30 +84,32 @@ footer {
 }
 
 
-#product-list .product-tbl th,
-#cart-item .product-tbl th,
-#order-confirm .product-tbl th,
-#order-list .product-tbl th,
-#admin-employees .product-tbl th,
-#admin-products .product-tbl th {
+#product-list .horizontal-tbl th,
+#cart-item .horizontal-tbl th,
+#order-confirm .horizontal-tbl th,
+#order-list .horizontal-tbl th,
+#admin-employees .horizontal-tbl th,
+#admin-products .horizontal-tbl th,
+#admin-orders .horizontal-tbl th {
     background-color: #e8f5e9;
     padding: 0;
     border: 1px solid #cccccc;
     text-align: center;
-    font-size: 28px;
+    font-size: 20px;
 }
 
-#product-list .product-tbl td,
-#cart-item .product-tbl td,
-#order-confirm .product-tbl td,
-#order-list .product-tbl td,
-#admin-employees .product-tbl td,
-#admin-products .product-tbl td {
+#product-list .horizontal-tbl td,
+#cart-item .horizontal-tbl td,
+#order-confirm .horizontal-tbl td,
+#order-list .horizontal-tbl td,
+#admin-employees .horizontal-tbl td,
+#admin-products .horizontal-tbl td,
+#admin-orders .horizontal-tbl td {
     width: 300px;
     padding: 0;
     border: 1px solid #cccccc;
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 table {
@@ -125,7 +127,10 @@ table {
 
 #product-list, #product-details, #cart-item,
 #order-form, #order-confirm, #order-comp,
-#profile, #order-list, #password-reset, #admin-employees, #admin-products {
+#profile, #order-list, #password-reset, #admin-employees,
+#admin-products, #admin-orders, #admin-sales, #admin-sales-new,
+#admin-system-info, #admin-audit, #error, #get-snowflake, #snowflake-input,
+#snowflake-test {
     background-image: url(../images/ims-app-background.jpg);
     background-repeat: no-repeat;
     background-position: center top;
@@ -251,9 +256,7 @@ h2 {
 .summary-text .button,
 .button-selection input[name="correctproduct"],
 .button-selection input[name="correct"],
-.button-container input[name="user-update"],
-.button-container input[name="emailAddress"],
-.button-container input[name="admin-update"] {
+.button-container input[name="emailAddress"] {
     background-color: #009cd3;
     color: #ffffff;
     font-size: 20px;
@@ -282,9 +285,7 @@ h2 {
 .summary-text .button:hover,
 .button-selection input[name="correctproduct"]:hover,
 .button-selection input[name="correct"]:hover,
-.button-container input[name="user-update"]:hover,
-.button-container button[type="submit"]:hover,
-.button-container input[name="admin-update"]:hover {
+.button-container button[type="submit"]:hover {
     text-decoration: none;
     background-color: #ffffff;
     color: #009cd3;
@@ -310,7 +311,11 @@ input.quantity-input {
 }
 
 .placeorder,
-.button-selection input[name="placeorderconfirm"] {
+.button-selection input[name="placeorderconfirm"],
+.button-container input[name="user-update"],
+.button-container input[name="admin-update"],
+.button-container input[name="connect"],
+.button-container button[name="export"] {
     background-color: #32cd32;
     color: #ffffff;
     font-size: 20px;
@@ -323,7 +328,11 @@ input.quantity-input {
 }
 
 .placeorder:hover,
-.button-selection input[name="placeorderconfirm"]:hover {
+.button-selection input[name="placeorderconfirm"]:hover,
+.button-container input[name="user-update"]:hover,
+.button-container input[name="admin-update"]:hover,
+.button-container input[name="connect"]:hover,
+.button-container button[name="export"]:hover {
     text-decoration: none;
     background-color: #ffffff;
     color: #32cd32;
@@ -408,7 +417,7 @@ input.quantity-input {
 #login-wrap, #register-wrap, #password-wrap {
     clear: both;
     margin: 100px auto ;
-    width: 30%;
+    width: 50%;
     max-width: 500px;
 }
 
@@ -444,7 +453,8 @@ a.oauth2 {
 
 .login-form label,
 .register-form label,
-.newPassword label {
+.newPassword label,
+.snowflake-form label {
     font-size: 0.9rem;
     color: #666;
     display: block;
@@ -459,7 +469,9 @@ a.oauth2 {
 .register-form input[type="text"],
 .register-form input[type="password"],
 .register-form input[type="email"],
-.forgetPasswordForm input[type="email"] {
+.forgetPasswordForm input[type="email"],
+.snowflake-form input[type="text"],
+.snowflake-form input[type="password"] {
     width: 80%;
     padding: 0.5rem;
     margin-bottom: 1rem;
@@ -474,19 +486,37 @@ a.oauth2 {
 .register-form input[type="text"]:focus,
 .register-form input[type="password"]:focus,
 .register-form input[type="email"]:focus,
-.forgetPasswordForm input[type="email"]:focus {
+.forgetPasswordForm input[type="email"]:focus,
+.snowflake-form input[type="text"]:focus,
+.snowflake-form input[type="password"]:focus {
     border-color: #3498db;
     outline: none;
 }
 
-/* エラーメッセージ */
+.register-success {
+    font-size: 24px;
+    font-family: 'Bitter', serif;
+}
+
+.register-success:before {
+    content: "";
+    padding-right: 10px;
+    border-left: 7px solid #3CB371;
+}
+
+.register-success:after {
+    content: "";
+    padding-left: 10px;
+    border-right: 7px solid #3CB371;
+}
+
+
 .error-message {
     color: #e74c3c;
     font-size: 0.9rem;
     margin-bottom: 1rem;
 }
 
-/* ログインボタンのスタイル */
 .button-container {
     margin-top: 1rem;
 }
@@ -560,5 +590,45 @@ a.oauth2 {
     font-size: 24px;
 }
 
+.access-deny span,
+.access-deny a {
+    text-align: center;
+    display: block;
+}
 
+.graph-section {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    padding: 20px 30% 20px 0;
+}
 
+.graph-section h2 {
+    margin-top: 0;
+    margin-right: 0;
+    width: 20%;
+
+}
+
+.graph-section img {
+    max-width: 90%;
+    width: 60%;
+    height: 60%;
+}
+
+#admin-sales-new canvas,
+#admin-system-info canvas {
+    margin: 0 5% 50px;
+}
+
+#snowflake-input .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 20%;
+}
+
+label {
+    margin: auto;
+}

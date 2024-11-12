@@ -2,25 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/head :: commonhead('AuditLog')}" ></head>
-<body>
+<body id="admin-audit">
+<div th:replace="~{'fragments/header' :: header}"></div>
 <div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
-<h1>Auditlog</h1>
-<div th:replace="~{fragments/header-right}"></div>
 <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
     <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
 </div>
 <div th:if="${#authorization.expression('hasAnyAuthority(''ROLE_USER'', ''OIDC_USER'')')}">
     <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
 </div>
-<div class="container main-content">
-    <button id="downloadButton">Download</button>
-    <a>ダウンロードはcsvのみとなります</a>
-    <pre th:text="${auditlogjson}"></pre>
+<div id="wrap">
+    <div class="container">
+        <h1 class="icon">Auditlog</h1>
+        <button id="downloadButton">Download</button>
+        <a>ダウンロードはcsvのみとなります</a>
+        <pre th:text="${auditlogjson}"></pre>
+    </div>
+    <script>
+        $('#downloadButton').click(function() {
+            window.location.href = '/audit/download';
+        });
+    </script>
 </div>
-<script>
-    $('#downloadButton').click(function() {
-        window.location.href = '/audit/download';
-    });
-</script>
+<div th:replace="~{'fragments/footer' :: footer}"></div>
 </body>
 </html>
