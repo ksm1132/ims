@@ -625,6 +625,6 @@ a.oauth2 {
 #snowflake-input .form-group {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     padding: 5px 20%;
 }
