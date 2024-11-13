@@ -59,6 +59,12 @@ jobs:
     - name: Build with Maven
       run: mvn clean package -Dtest=!OrderUiTest
 
+# Check if images folder exists in the build output
+    - name: List files in build output
+      run: |
+       echo "Listing contents of the static/images folder:"
+       ls -R target/classes/static/images
+
     - name: Create staging directory and copy JAR file
       run: mkdir staging && cp target/*.jar staging
 
