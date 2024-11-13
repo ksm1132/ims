@@ -26,7 +26,7 @@
                         th:text="${prod.name}"></span></a></td>
                 <td><span th:text="${prod.price}"></span>円</td>
                 <td><span th:text="${prod.stock}"></span></td>
-                <td><img th:src="${prod.imgUrl}" alt="商品画像"></td>
+                <td><img th:src="@{${prod.imgUrl}}" alt="商品画像"></td>
             </tr>
         </table>
     </div>
