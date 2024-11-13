@@ -22,7 +22,7 @@
                 <th>商品画像</th>
             </tr>
             <tr th:each="prod:${productList}">
-                <td class="nowrap"><a th:href="@{/catalog/product-details(productId=${prod.id})}"><span
+                <td><a th:href="@{/catalog/product-details(productId=${prod.id})}"><span
                         th:text="${prod.name}"></span></a></td>
                 <td><span th:text="${prod.price}"></span>円</td>
                 <td><span th:text="${prod.stock}"></span></td>

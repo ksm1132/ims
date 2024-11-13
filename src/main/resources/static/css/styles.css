@@ -1,5 +1,11 @@
 @charset "utf-8";
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -35,6 +41,7 @@ header {
 
 img {
     vertical-align: bottom;
+    width: 100%;
 }
 
 .header-right {
@@ -67,11 +74,11 @@ a:hover {
     background-color: #ffffff;
     margin: 100px auto 0;
     padding: 10px 0;
-    width: 96%;
+    width: 100%;
 }
 
 .container {
-    width: 96%;
+    width: 100%;
     margin: 0 auto 0;
 }
 
@@ -79,7 +86,7 @@ footer {
     text-align: center;
     color: #ffffff;
     padding: 20px 0;
-    width: 96%;
+    width: 100%;
     margin-top: 200px;
 }
 
@@ -110,20 +117,17 @@ footer {
     border: 1px solid #cccccc;
     text-align: center;
     font-size: 18px;
+    word-wrap: break-word;
 }
 
 table {
     border-spacing: 0;
+    table-layout: fixed;
     border-collapse: collapse;
     margin: 40px auto 20px;
-    width: 96%;
+    width: 100%;
     text-align: center;
 }
-
-.nowrap {
-    white-space: nowrap;
-}
-
 
 #product-list, #product-details, #cart-item,
 #order-form, #order-confirm, #order-comp,
@@ -143,7 +147,7 @@ h1 {
     font-size: 48px;
     border-bottom: 1px solid #cccccc;
     margin: 0 auto 40px;
-    width: 96%;
+    width: 100%;
     text-align: center;
     line-height: 1;
 }
@@ -300,7 +304,7 @@ input.quantity-input {
 .placeorder-wrapper{
     text-align: left;
     margin: auto;
-    width: 96%;
+    width: 100%;
 }
 
 .button-container,
@@ -315,7 +319,8 @@ input.quantity-input {
 .button-container input[name="user-update"],
 .button-container input[name="admin-update"],
 .button-container input[name="connect"],
-.button-container button[name="export"] {
+.button-container button[name="export"],
+.button-container button[name="download"] {
     background-color: #32cd32;
     color: #ffffff;
     font-size: 20px;
@@ -332,7 +337,8 @@ input.quantity-input {
 .button-container input[name="user-update"]:hover,
 .button-container input[name="admin-update"]:hover,
 .button-container input[name="connect"]:hover,
-.button-container button[name="export"]:hover {
+.button-container button[name="export"]:hover,
+.button-container button[name="download"]:hover {
     text-decoration: none;
     background-color: #ffffff;
     color: #32cd32;
@@ -350,6 +356,7 @@ input.quantity-input {
 .back-link a {
     color: #000000;
 }
+
 #product-details .vertical-tbl th,
 #order-form .vertical-tbl th,
 #order-confirm .vertical-tbl th,
@@ -432,7 +439,7 @@ input.quantity-input {
 .login-container,
 .register-container,
 .password-container {
-    width: 80%;
+    width: 100%;
     padding: 2rem;
     background: #fff;
     border-radius: 8px;
@@ -453,14 +460,13 @@ a.oauth2 {
 
 .login-form label,
 .register-form label,
-.newPassword label,
-.snowflake-form label {
+.newPassword label {
     font-size: 0.9rem;
     color: #666;
     display: block;
     margin-bottom: 0;
     text-align: left;
-    margin-left: 10%;
+    align-items: flex-start;
 }
 
 
@@ -472,7 +478,7 @@ a.oauth2 {
 .forgetPasswordForm input[type="email"],
 .snowflake-form input[type="text"],
 .snowflake-form input[type="password"] {
-    width: 80%;
+    width: 100%;
     padding: 0.5rem;
     margin-bottom: 1rem;
     border: 1px solid #ddd;
@@ -524,7 +530,7 @@ a.oauth2 {
 .login-button,
 .register-button,
 .resetButton button[type="submit"] {
-    width: 80%;
+    width: 100%;
     padding: 0.8rem;
     font-size: 1rem;
     color: white;
@@ -601,7 +607,7 @@ a.oauth2 {
     align-items: center;
     width: 80%;
     margin: auto;
-    padding: 20px 30% 20px 0;
+    padding: 20px 0 20px 0;
 }
 
 .graph-section h2 {
@@ -612,9 +618,8 @@ a.oauth2 {
 }
 
 .graph-section img {
-    max-width: 90%;
-    width: 60%;
-    height: 60%;
+    width: 70%;
+    height: 70%;
 }
 
 #admin-sales-new canvas,
@@ -627,4 +632,188 @@ a.oauth2 {
     flex-direction: column;
     align-items: flex-start;
     padding: 5px 20%;
+}
+
+.snowflake-form label {
+    font-size: 0.9rem;
+    color: #666;
+    display: block;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+#cart-item input[name="cart-update"],
+#cart-item input[name="cart-delete"] {
+    width: 50px;
+}
+
+.audit-log {
+    text-align: center;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+#admin-audit p {
+    text-align: center;
+    display: block;
+}
+
+@media (max-width: 768px) {
+/* 白い背景部分の調整 */
+    .login-container,
+    .register-container,
+    .password-container {
+        width: 100%; /* 幅を画面に対して90%に調整 */
+        padding: 1.5rem; /* パディングを少し減らす */
+    }
+
+    /* h1テキストの調整 */
+    h1 {
+        font-size: 1.5rem; /* テキストがはみ出さないようフォントサイズを小さく */
+        line-height: 1.2; /* 行間の調整 */
+        word-wrap: break-word; /* テキストが折り返されるように設定 */
+    }
+
+    /* マージンと配置の調整 */
+    #login-wrap, #register-wrap, #password-wrap, #register-comp-wrap {
+        margin: 50px auto; /* 上部のマージンを少し減らす */
+        width: 80%; /* 幅を狭めることで、スマホ画面にフィットさせる */
+        max-width: 400px; /* 最大幅をさらに小さく */
+    }
+
+    /* フォームの入力エリアの調整 */
+    .login-form input[type="text"],
+    .login-form input[type="password"],
+    .register-form input[type="text"],
+    .register-form input[type="password"],
+    .register-form input[type="email"],
+    .forgetPasswordForm input[type="email"],
+    .snowflake-form input[type="text"],
+    .snowflake-form input[type="password"] {
+        padding: 0.4rem; /* パディングを少し減らす */
+        font-size: 0.9rem; /* フォントサイズを少し小さくする */
+    }
+
+    /* OAuth2ボタンの配置調整 */
+    a.oauth2 {
+        justify-content: center; /* ボタンを中央に配置 */
+        margin-top: 30px; /* 上部のマージンを少し減らす */
+    }
+
+    /* OAuth2アイコンの調整 */
+    .oauth2-image {
+        width: 100px; /* アイコンを少し小さく */
+        height: 100px;
+    }
+
+    table {
+        width: 100%; /* テーブル全体を画面幅に合わせる */
+        margin: 20px auto;
+    }
+
+    #product-list .horizontal-tbl th,
+    #cart-item .horizontal-tbl th,
+    #order-confirm .horizontal-tbl th,
+    #order-list .horizontal-tbl th,
+    #admin-employees .horizontal-tbl th,
+    #admin-products .horizontal-tbl th,
+    #admin-orders .horizontal-tbl th {
+        font-size: 16px; /* フォントサイズを少し小さく */
+    }
+
+    #product-list .horizontal-tbl td,
+    #cart-item .horizontal-tbl td,
+    #order-confirm .horizontal-tbl td,
+    #order-list .horizontal-tbl td,
+    #admin-employees .horizontal-tbl td,
+    #admin-products .horizontal-tbl td,
+    #admin-orders .horizontal-tbl td {
+        font-size: 14px; /* フォントサイズをさらに小さく */
+        padding: 5px;
+    }
+
+    /* 列幅を自動調整して、狭い画面でも収まりやすくする */
+    #product-list .horizontal-tbl td,
+    #cart-item .horizontal-tbl td,
+    #order-confirm .horizontal-tbl td,
+    #order-list .horizontal-tbl td,
+    #admin-employees .horizontal-tbl td,
+    #admin-products .horizontal-tbl td,
+    #admin-orders .horizontal-tbl td {
+        width: auto;
+    }
+
+    #product-details .vertical-tbl th,
+    #order-form .vertical-tbl th,
+    #order-confirm .vertical-tbl th,
+    #profile .vertical-tbl th {
+        font-size: 18px; /* フォントサイズを小さく */
+        padding: 5px; /* パディング調整 */
+    }
+
+    #product-details .vertical-tbl td,
+    #order-form .vertical-tbl td,
+    #order-confirm .vertical-tbl td,
+    #profile .vertical-tbl td {
+        font-size: 16px; /* フォントサイズを小さく */
+        padding: 4px;
+    }
+
+    #order-form .vertical-tbl td input[type="text"],
+    #order-form .vertical-tbl td select,
+    #profile .vertical-tbl td input[type="text"] {
+        font-size: 16px; /* 入力フィールドのフォントサイズを小さく */
+        height: 35px;
+    }
+
+    #order-comp .comp-message {
+        font-size: 18px; /* メッセージのフォントサイズを小さく */
+        margin-top: 20px;
+    }
+
+    .vertical-tbl {
+        width: 100%; /* テーブルも幅100% */
+    }
+
+    .summary-text .button,
+    .button-selection input[name="correctproduct"],
+    .button-selection input[name="correct"] {
+        font-size: 14px;
+        width: 120px;
+    }
+
+    .placeorder,
+    .button-selection input[name="placeorderconfirm"] {
+        font-size: 14px;
+        width: 120px;
+    }
+
+
+    h2 {
+        font-size: 18px;
+    }
+
+    section.mfa h2 {
+        margin-left: 10%;
+    }
+
+    .header-image {
+        margin-top: 0;
+        width: 120px;
+        height: 40px;
+        object-fit: cover;
+        margin-left: 40%;
+    }
+
+    .register-success {
+        font-size: 20px;
+    }
+
+    .message {
+        text-align: center;
+        font-size: 10px;
+    }
+
+
 }
