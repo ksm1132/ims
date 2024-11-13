@@ -135,7 +135,7 @@ table {
 #admin-products, #admin-orders, #admin-sales, #admin-sales-new,
 #admin-system-info, #admin-audit, #error, #get-snowflake, #snowflake-input,
 #snowflake-test {
-    background-image: url(../images/ims-app-background.jpg);
+    background-image: url(/images/ims-app-background.jpg);
     background-repeat: no-repeat;
     background-position: center top;
     background-attachment: fixed;
