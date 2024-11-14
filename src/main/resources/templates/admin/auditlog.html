@@ -14,9 +14,11 @@
 <div id="wrap">
     <div class="container">
         <h1 class="icon">Auditlog</h1>
-        <button id="downloadButton">Download</button>
-        <a>ダウンロードはcsvのみとなります</a>
-        <pre th:text="${auditlogjson}"></pre>
+            <div class="button-container">
+                <button id="downloadButton" type="submit" name="download">Download</button>
+            </div>
+            <p>ダウンロードはcsvのみとなります</p>
+            <pre th:text="${auditlogjson}" class="audit-log"></pre>
     </div>
     <script>
         $('#downloadButton').click(function() {

@@ -67,7 +67,7 @@
                     <form th:action="@{/user/resetPassword}" method="post">
                         <div class="button-container">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <button type="submit">リセットリンクを<br>送信</button>
+                            <button type="submit">設定</button>
                         </div>
                         <div th:if="${successMessage}" class="message">
                             <p th:text="${successMessage}"></p>
@@ -77,7 +77,7 @@
                         </div>
                     </form>
             </section>
-            <section class="2fa">
+            <section class="mfa">
             <h2 class="icon2">二要素認証</h2>
                 <form th:action="@{/mfa-enable-disable}" method="get" th:object="${userProfile}">
                     <input type="hidden" th:field="*{id}" />

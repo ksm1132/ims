@@ -23,23 +23,23 @@
                 <th>操作</th>
             </tr>
             <tr th:each="item:${cartInput.cartItemInputs}">
-                <td class="nowrap"><span th:text="${item.productName}"></span></td>
+                <td><span th:text="${item.productName}"></span></td>
                 <td><span th:text="${item.productPrice}"></span>円</td>
-                <td><img th:src="${item.imgUrl}" alt="商品画像" style="width:100px;height:auto;"></img></td>
+                <td><img th:src="${item.imgUrl}" alt="商品画像"></td>
                 <td>
                     <form th:action="@{/cart/update-quantity}" method="post">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <input type="hidden" name="cartItemId" th:value="${item.id}">
                         <input type="number" name="quantity" th:value="${item.quantity}" min="1" required
                                class="quantity-input">
-                        <input type="submit" value="更新">
+                        <input type="submit" value="更新" name="cart-update">
                     </form>
                 </td>
                 <td>
                     <form th:action="@{/cart/remove-item}" method="post">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <input type="hidden" name="cartItemId" th:value="${item.id}">
-                        <input type="submit" value="カートから削除">
+                        <input type="submit" value="削除" name="cart-delete">
                     </form>
                 </td>
             </tr>
