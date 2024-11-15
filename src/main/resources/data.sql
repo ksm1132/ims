@@ -5,7 +5,7 @@ INSERT INTO t_product
 ,('Arcteryx　Alpha SV Jacket', 150000, 30,'/images/alphaSvJacket.jpg')
 ,('Patagonia フリース', 20000, 40,'/images/patagonia.jpg')
 ,('モンベル　ライトダウン', 12000, 50,'/images/montbellLightDown.jpg')
-,('アディダス　スーパースター', 15800, 60,'/images/adidasSuperstar2.jpg')
+,('アディダス　スーパースター', 15800, 60,'/images/adidasSuperstar.jpg')
 ,('コンバース　ジャックパーセル', 16800, 70,'/images/converseJackpursell.jpg')
 ;
 
