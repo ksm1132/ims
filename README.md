@@ -12,27 +12,38 @@
   - インポートコネクタ(Snowflake)
   - AuditLog（ログインのみ）
 
-![スクリーンショット](./images/sample.png)
+![スクリーンショット](src/main/resources/static/images/sample.png)
 
-## インストール方法
+
+## Local環境のDocker
 
 1. このリポジトリをクローンします。
     ```bash
-    git clone https://github.com/username/repository.git
+    git clone https://github.com/ksm1132/ims.git
     ```
-2. 必要な依存関係をインストールします。
+2. 環境変数の設定 
+
+application.propertiesの確認と修正
+
+3. applicationのビルド
     ```bash
-    npm install
+    mvn clean package -DTest
     ```
-3. 開発サーバーを起動します。
+
+4. docker composeによる起動
     ```bash
-    npm start
+    docker compose up --build
     ```
 
-## 使用方法
+## AWS FARGATE
 
-以下のコマンドでアプリケーションを実行します:
-```bash
-npm run start
+1. AWS環境の構築
 
+最低限ECR、ECSがあれば実行可能
 
+2. maven.ymlファイル修正
+
+### 以下注意
+- 環境変数
+- Triger条件
+- Push先

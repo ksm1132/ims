@@ -14,21 +14,17 @@
 <div id="wrap">
     <div class="container">
         <h1 class="icon">商品一覧</h1>
-        <table class="horizontal-tbl">
-            <tr>
-                <th>商品名</th>
-                <th>価格</th>
-                <th>在庫数</th>
-                <th>商品画像</th>
-            </tr>
-            <tr th:each="prod:${productList}">
-                <td><a th:href="@{/catalog/product-details(productId=${prod.id})}"><span
-                        th:text="${prod.name}"></span></a></td>
-                <td><span th:text="${prod.price}"></span>円</td>
-                <td><span th:text="${prod.stock}"></span></td>
-                <td><img th:src="${prod.imgUrl}" alt="商品画像"></td>
-            </tr>
-        </table>
+        <div class="product-card-list">
+            <div class="product-card" th:each="prod:${productList}">
+                <img th:src="${prod.imgUrl}" alt="商品画像" class="product-image">
+                <div class="product-card-details">
+                    <h2><a th:href="@{/catalog/product-details(productId=${prod.id})}" th:text="${prod.name}">商品名</a></h2>
+                    <p>価格: <span th:text="${prod.price}"></span>円</p>
+                    <p>在庫: <span th:text="${prod.stock}"></span></p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 <div th:replace="~{'fragments/footer' :: footer}"></div>
