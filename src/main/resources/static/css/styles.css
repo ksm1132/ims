@@ -817,3 +817,43 @@ a.oauth2 {
 
 
 }
+
+
+/* 商品リストカード形式へ修正 */
+.product-card-list {
+    display: flex;
+    flex-wrap: wrap; /* 折り返しを許可 */
+    gap: 20px; /* カード間の間隔 */
+    justify-content: space-between;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column; /* 画像と情報を縦に並べる */
+    align-items: center; /* 中央揃え */
+    width: calc(50% - 10px); /* 2列表示 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* カードの影 */
+    border-radius: 8px; /* カードの角を丸くする */
+    padding: 15px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.product-image {
+    object-fit: cover; /* 画像の比率を維持 */
+    margin-bottom: 10px;
+}
+
+.product-card-details {
+    font-size: 14px;
+}
+
+.product-card-details h2 {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.product-card-details p {
+    margin: 5px 0;
+    color: #555;
+}
