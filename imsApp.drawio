@@ -165,7 +165,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="hJTiLXYzMzOdzNSHNs5Q" name="技術スタック">
-    <mxGraphModel dx="1748" dy="1168" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1289" dy="701" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -396,6 +396,9 @@
         </mxCell>
         <mxCell id="JrtVZGMo-jqGN1GPkM_L-54" value="コネクタ&lt;br&gt;インポートのみ" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="1475" y="550" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Bq2-gxESVb7cYk7Gi3vb-1" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/png,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADsElEQVR4nO2Y3UtUQRjGx6huqsso6Lb+gOgD+gPUSvvAovxaU3N3zV1XV3f9Ks/MnJk1zYpuiuym8q6g74yCKJA9MwoRXVTUdR8EQWR0UYFNnAXJzHnP8biuLpwfzM2ened9H96Zsw+LkI+Pj4+PT5agknVRya/rVsd9Y+RgIvJOtyqM2CO3tcqN2BNIq3PEuA/1QsdYQm8k3beDCPabSq5061BPsyqsbJh9VTWomv54nZOJI/3xYGFVUKtT3hvT1s8swSepRbfBUxF8GBLpfohVcUDfxP5Y0zeM8TKdPn6Kl++LHvuu218cCKruR8TJyCXHkadkah0VfAISqj3drp9KZYOq5rGLOv0q3jIM7a0/l3AyMYHH8XpHI9PuilbMGDVVSTCsbWZ3fWgyfCa+Yaau/dnuo6FJ3b6SUDij7WCkFbkFv8QrqWBvIcHI5S5wKuUnYnKm7uGe6HNoT/RqN2iCCP566NnQCtdGMlMRfA8sylRZW0TbVFEgqGrOJoqm9OoH20uKqvV360B7NKMJ1cSC7UReIII9gISTd4zMm0rXXFl75NOUVlk88hl62yVv98JHSvJbyCtY9G0kkv2AClSzVvCIBfrbegMnW/ug79T0xZ3uxU9TmpvQfKCCnYaKHH9M1c7akLbJ0sbGn6WNjb90z3fVhdSJJ/AFJ5Kn0HwZSA+sIYJ9hAoFzyfBqUArfLHTwQR7j5/i1SgbmBavB4ulmdrbdGzOJvZFmxS24AtuilQlyhZY4WVUsnGoYPza8Tkbsfc4XHBLKVWQNSMZM+N8aybjeM1hM1aFkYU85RUi2VWoeNdDAuawueQpItgQWijc5LC6M3AOs9fRbOYprxDJO6EmjFEG5jA3eYpIswUtNG5yWBOQw5qHFyBPeQVbZqnD+VYHEhFPeYpavBjlEir4CNRQx91/c1hRVVB13DOcfvxuolzjLofF/+apk3CesrXM+eYprxDBB6Hm7AxlZyk3eYoKxtFi4SaHhS4kVXioI3d5yium5LVQk3aWIhaHjVisAi02SqkCIvgYeGxynae8Yo6ZW5xy2Oz3gk/aGQ4tJajkVzxMQ/u30aJh5zAi2Fe3JohkX1KjqbVoKUIET85hGjG0VMEv8Uoi+Rvnu8Fe5SxPeYXKVKGjkVznqQXJYYLfQPkC1uQw+zP7GconqGSn/jMiOEP5xkB6YA2V/MO0I/Vu8MXgKpSPEMGOTBkxZaoc5StKqQIqmCSSpZdMnvIKFny7aZmbPQv4+PigbPAHXk02LXp9WDgAAAAASUVORK5CYII=;" vertex="1" parent="1">
+          <mxGeometry x="682" y="105" width="65" height="65" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
