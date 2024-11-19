@@ -3,6 +3,7 @@ package com.ims.inventorymgmtsys.repository;
 import com.ims.inventorymgmtsys.entity.Product;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ProductRepository {
@@ -16,4 +17,8 @@ public interface ProductRepository {
     boolean update(Product product);
 
     void save(Product product);
+
+    List<Product> findAllWithPagination(int page, int size);
+
+    Optional<Integer> countAll();
 }

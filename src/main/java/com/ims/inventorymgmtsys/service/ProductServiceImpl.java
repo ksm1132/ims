@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -80,6 +81,16 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Product findByName(String name) {
         return productRepository.findByName(name);
+    }
+
+    @Override
+    public List<Product> findAllWithPagination(int page, int size) {
+        return productRepository.findAllWithPagination(page, size);
+    }
+
+    @Override
+    public Optional<Integer> getAllProductCount() {
+        return productRepository.countAll();
     }
 
 

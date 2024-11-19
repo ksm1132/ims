@@ -10,9 +10,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "staging5" ]
+    branches: [ "staging6" ]
   pull_request:
-    branches: [ "staging5" ]
+    branches: [ "staging6" ]
 
 jobs:
   build:

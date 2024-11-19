@@ -33,14 +33,15 @@ public class CatalogControllerIntegrationTest {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+
     @Test
     @WithMockUser(username = "user", roles = "USER")
     void test_displayList() throws Exception {
-        mockMvc.perform(get("/catalog/list"))
-                .andExpect(content().string(containsString("ASICS マジックスピード4")))
-                .andExpect(content().string(containsString("モンベル　ライトダウン")))
-                ;
+        mockMvc.perform(get("/api/products"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.products[?(@.name == 'モンベル　ライトダウン')]").exists());
     }
+
 
     @Test
     @WithMockUser(username = "user", roles = "USER")
