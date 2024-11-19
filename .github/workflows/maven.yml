@@ -11,6 +11,9 @@ name: Java CI with Maven
 on:
   push:
     branches: [ "staging6" ]
+    paths-ignore:
+      - "*.drawio"
+      - "docs/*.drawio"
   pull_request:
     branches: [ "staging6" ]
 
