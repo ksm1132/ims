@@ -78,13 +78,26 @@
                     this.loading = false;  // ローディング終了
                 }
             },
+//            onScroll() {
+//                // スクロールがページ下部に達したら次のページをロード
+//                const bottom = document.documentElement.scrollHeight === document.documentElement.scrollTop + window.innerHeight;
+//                if (bottom && !this.loading) {
+//                    this.fetchProducts();
+//                }
+//            }
             onScroll() {
-                // スクロールがページ下部に達したら次のページをロード
-                const bottom = document.documentElement.scrollHeight === document.documentElement.scrollTop + window.innerHeight;
-                if (bottom && !this.loading) {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight;
+                const clientHeight = window.innerHeight || document.documentElement.clientHeight;
+
+                // ページ下部に達しているかを確認
+                const isBottom = scrollTop + clientHeight >= scrollHeight - 10; // 余白を調整 (-10 は少し余裕を持つ)
+
+                if (isBottom && !this.loading) {
                     this.fetchProducts();
                 }
             }
+
         }
     });
     app.mount('#app');
