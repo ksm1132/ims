@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: commonhead('商品一覧')}"></head>
+<body id="product-list">
+<div th:replace="~{'fragments/header' :: header}"></div>
+<div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
+<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+    <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
+</div>
+<div th:if="${#authorization.expression('hasAnyAuthority(''ROLE_USER'', ''OIDC_USER'')')}">
+    <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
+</div>
+<div id="wrap">
+    <div class="container">
+        <h1 class="icon">商品一覧</h1>
+        <div class="product-card-list">
+            <div class="product-card" th:each="prod:${productList}">
+                <img th:src="${prod.imgUrl}" alt="商品画像" class="product-image">
+                <div class="product-card-details">
+                    <h2><a th:href="@{/catalog/product-details(productId=${prod.id})}" th:text="${prod.name}">商品名</a></h2>
+                    <p>価格: <span th:text="${prod.price}"></span>円</p>
+                    <p>在庫: <span th:text="${prod.stock}"></span></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div th:replace="~{'fragments/footer' :: footer}"></div>
+</body>
+</html>

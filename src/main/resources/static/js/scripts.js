@@ -16,3 +16,4 @@ function formatPhoneNumber(element) {
     }
     element.value = value;
 }
+

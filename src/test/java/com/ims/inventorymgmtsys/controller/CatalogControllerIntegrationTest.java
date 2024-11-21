@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.ims.inventorymgmtsys.entity.Product;
 import com.ims.inventorymgmtsys.service.CatalogService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,8 +15,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -33,13 +36,13 @@ public class CatalogControllerIntegrationTest {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+
     @Test
     @WithMockUser(username = "user", roles = "USER")
     void test_displayList() throws Exception {
-        mockMvc.perform(get("/catalog/list"))
-                .andExpect(content().string(containsString("ASICS マジックスピード4")))
-                .andExpect(content().string(containsString("モンベル　ライトダウン")))
-                ;
+        mockMvc.perform(get("/api/products"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.products[?(@.name == 'モンベル　ライトダウン')]").exists());
     }
 
     @Test

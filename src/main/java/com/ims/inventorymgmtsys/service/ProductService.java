@@ -2,8 +2,10 @@ package com.ims.inventorymgmtsys.service;
 
 import com.ims.inventorymgmtsys.entity.Product;
 import com.ims.inventorymgmtsys.entity.ProductWrapper;
+import net.snowflake.client.jdbc.internal.org.bouncycastle.jcajce.provider.asymmetric.rsa.CipherSpi;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ProductService {
@@ -21,5 +23,9 @@ public interface ProductService {
     boolean updateProducts(List<Product> products);
 
     Product findByName(String name);
+
+    List<Product> findAllWithPagination(int page, int size);
+
+    Optional<Integer> getAllProductCount();
 
 }

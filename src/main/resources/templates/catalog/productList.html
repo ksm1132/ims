@@ -1,7 +1,9 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="~{fragments/head :: commonhead('商品一覧')}"></head>
+<head th:replace="~{fragments/head :: commonhead('商品一覧')}">
+</head>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <body id="product-list">
 <div th:replace="~{'fragments/header' :: header}"></div>
 <div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
@@ -14,19 +16,91 @@
 <div id="wrap">
     <div class="container">
         <h1 class="icon">商品一覧</h1>
-        <div class="product-card-list">
-            <div class="product-card" th:each="prod:${productList}">
-                <img th:src="${prod.imgUrl}" alt="商品画像" class="product-image">
-                <div class="product-card-details">
-                    <h2><a th:href="@{/catalog/product-details(productId=${prod.id})}" th:text="${prod.name}">商品名</a></h2>
-                    <p>価格: <span th:text="${prod.price}"></span>円</p>
-                    <p>在庫: <span th:text="${prod.stock}"></span></p>
+        <div id="app">
+            <div class="product-card-list">
+                <div class="product-card" v-for="prod in products" :key="prod.id">
+                    <img :src="prod.imgUrl" alt="商品画像" class="product-image">
+                    <div class="product-card-details">
+                        <h2><a :href="`/catalog/product-details?productId=${prod.id}`" v-text="prod.name"></a></h2>
+                        <p>価格: {{ prod.price }}円</p>
+                        <p>在庫: {{ prod.stock }}</p>
+                    </div>
                 </div>
+                <div v-if="loading" class="loading-spinner">読み込み中...</div>
             </div>
         </div>
-
     </div>
 </div>
 <div th:replace="~{'fragments/footer' :: footer}"></div>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                products: [],  // 商品リスト
+                page: 0,       // 現在のページ
+                size: 2,      // 1ページあたりの商品数
+                loading: false, // ローディング中かどうか
+                hasMore: true,  // 次のページが存在するか
+            };
+        },
+        mounted() {
+            this.fetchProducts(); // 最初の商品リストを取得
+            window.addEventListener('scroll', this.onScroll); // スクロールイベントをリッスン
+        },
+        methods: {
+            async fetchProducts() {
+                if (this.loading || !this.hasMore) return;  // ローディング中、または次のページがない場合はリクエストしない
+                this.loading = true;
+
+                try {
+                    const response = await fetch(`/api/products?page=${this.page}&size=${this.size}`);
+
+                    // レスポンスのステータスを確認
+                    if (!response.ok) {
+                        throw new Error(`HTTPエラー: ${response.status}`);
+                    }
+
+                    // レスポンスが正常ならJSONとして処理
+                    const data = await response.json();
+                    console.log('APIレスポンス:', data);
+
+                    if (data && data.products && Array.isArray(data.products)) {
+                        this.products.push(...data.products);  // 新しい商品を追加
+                        this.page += 1;  // 次のページを設定
+                        this.hasMore = data.products.length === this.size; // 商品数がページサイズに達しているか
+                    } else {
+                        console.error('データが正しくありません', data);
+                        this.hasMore = false;  // 商品が少なくなったら次のページはない
+                    }
+                } catch (error) {
+                    console.error('データ取得エラー:', error);
+                } finally {
+                    this.loading = false;  // ローディング終了
+                }
+            },
+//            onScroll() {
+//                // スクロールがページ下部に達したら次のページをロード
+//                const bottom = document.documentElement.scrollHeight === document.documentElement.scrollTop + window.innerHeight;
+//                if (bottom && !this.loading) {
+//                    this.fetchProducts();
+//                }
+//            }
+            onScroll() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight;
+                const clientHeight = window.innerHeight || document.documentElement.clientHeight;
+
+                // ページ下部に達しているかを確認
+                const isBottom = scrollTop + clientHeight >= scrollHeight - 10; // 余白を調整 (-10 は少し余裕を持つ)
+
+                if (isBottom && !this.loading) {
+                    this.fetchProducts();
+                }
+            }
+
+        }
+    });
+    app.mount('#app');
+</script>
 </body>
 </html>
