@@ -8,15 +8,16 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @JdbcTest
-@Sql("/JdbcProductRepositoryTest.sql")
+@Sql("JdbcProductRepositoryTest.sql")
+@Transactional
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class JdbcProductRepositoryTest {
     @Autowired
@@ -27,44 +28,57 @@ public class JdbcProductRepositoryTest {
     @BeforeEach
     void setUp() {
         productRepository = new JdbcProductRepository(jdbcTemplate);
-        jdbcTemplate.update("INSERT INTO t_product (name, price, stock) VALUES (?, ?, ?)","Test Product", 100, 10);
+//        jdbcTemplate.update("INSERT INTO t_product (name, price, stock) VALUES (?, ?, ?)","Test Product", 100, 10);
     }
 
     @Test
+    @Transactional
     void test_selectById() {
+        Product testProduct = new Product();
+        testProduct.setName("testProduct");
+        testProduct.setPrice(19800);
+        testProduct.setStock(22);
+        testProduct.setImgUrl("/iamges/testProduct.jpg");
+        productRepository.save(testProduct);
+
+        //Save後、DBからオブジェクトを取得するために一度namdでDBから引っ張る
+        Product product2 = productRepository.findByName("testProduct");
+        Product product3 = productRepository.findById(product2.getId());
+        assertThat(product3.getName()).isEqualTo("testProduct");
+        assertThat(product3.getPrice()).isEqualTo(19800);
+        assertThat(product3.getStock()).isEqualTo(22);
+
+    }
+
+    @Test
+    void test_selelctByName() {
         Product product = productRepository.findByName("モンベル　ライトダウン");
         assertThat(product.getName()).isEqualTo("モンベル　ライトダウン");
         assertThat(product.getPrice()).isEqualTo(12000);
         assertThat(product.getStock()).isEqualTo(50);
     }
 
-    Product findByName() {
-        Product product = productRepository.findByName("モンベル　ライトダウン");
-        return product;
-    }
 
     @Test
     void test_selectAll() {
         List<Product> products = productRepository.findAll();
-        assertThat(products.size()).isEqualTo(8);
+        assertThat(products.size()).isEqualTo(6);
     }
 
     @Test
     void test_update() {
-        Product training = new Product();
-        Product product = this.findByName();
-        training.setId(product.getId());
-        training.setName("おばけ");
-        training.setPrice(99);
-        training.setStock(33);
-        boolean result = productRepository.update(training);
+        Product product = productRepository.findByName("モンベル　ライトダウン");
+        product.setName("おばけ");
+        product.setPrice(99);
+        product.setStock(33);
+        boolean result = productRepository.update(product);
         assertThat(result).isEqualTo(true);
 
-        Map<String, Object> trainingMap = jdbcTemplate.queryForMap(
+        Map<String, Object> productMap = jdbcTemplate.queryForMap(
                 "SELECT * FROM t_product WHERE id = ?", product.getId());
-        assertThat(trainingMap.get("name")).isEqualTo("おばけ");
-        assertThat(trainingMap.get("price")).isEqualTo(99);
-        assertThat(trainingMap.get("stock")).isEqualTo(33);
+        assertThat(productMap.get("name")).isEqualTo("おばけ");
+        assertThat(productMap.get("price")).isEqualTo(99);
+        assertThat(productMap.get("stock")).isEqualTo(33);
     }
 
 }

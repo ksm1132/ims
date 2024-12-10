@@ -19,7 +19,6 @@ public class ProductServiceImplTest {
 
     @InjectMocks
     ProductServiceImpl productService;
-    CartServiceImpl cartService;
 
     @Mock
     ProductRepository productRepository;
@@ -36,15 +35,15 @@ public class ProductServiceImplTest {
 
     @Test
     void test_save() {
+        ArgumentCaptor<Product> productArgumentCaptor = ArgumentCaptor.forClass(Product.class);
+        doNothing().when(productRepository).save(productArgumentCaptor.capture());
+
         Product product = new Product();
         product.setName("test薄底シューズ");
         product.setPrice(19800);
         product.setStock(20);
-
-        ArgumentCaptor<Product> productArgumentCaptor = ArgumentCaptor.forClass(Product.class);
-        doNothing().when(productRepository).save(productArgumentCaptor.capture());
-
         productService.save(product);
+        verify(productRepository).save(any());
 
         Product product2 = productArgumentCaptor.getValue();
         assertThat(product2.getName()).isEqualTo("test薄底シューズ");

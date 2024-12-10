@@ -16,7 +16,7 @@ import java.util.Map;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@Sql("/JdbcProductRepositoryTest.sql")
+@Sql("/com/ims/inventorymgmtsys/repository/JdbcProductRepositoryTest.sql")
 @Transactional
 public class ProductServiceTest {
     @Autowired

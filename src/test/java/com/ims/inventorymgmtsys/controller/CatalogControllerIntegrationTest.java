@@ -4,8 +4,6 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.ims.inventorymgmtsys.entity.Product;
-import com.ims.inventorymgmtsys.service.CatalogService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,8 +14,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Map;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 
@@ -25,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Transactional
 //@Sql("/CatalogControllerIntegrationTest.sql")
-@Sql("/JdbcProductRepositoryTest.sql")
+@Sql("/com/ims/inventorymgmtsys/repository/JdbcProductRepositoryTest.sql")
 public class CatalogControllerIntegrationTest {
     @Autowired
     MockMvc mockMvc;

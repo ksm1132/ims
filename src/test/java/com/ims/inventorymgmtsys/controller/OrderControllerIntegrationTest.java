@@ -1,39 +1,17 @@
 package com.ims.inventorymgmtsys.controller;
 
-import com.ims.inventorymgmtsys.entity.Employee;
-import com.ims.inventorymgmtsys.entity.Order;
-import com.ims.inventorymgmtsys.entity.User;
-import com.ims.inventorymgmtsys.enumeration.PaymentMethod;
-import com.ims.inventorymgmtsys.input.CartInput;
-import com.ims.inventorymgmtsys.input.CartItemInput;
-import com.ims.inventorymgmtsys.input.OrderInput;
-import com.ims.inventorymgmtsys.service.OrderService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapperResultSetExtractor;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.annotation.SessionScope;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -41,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-@Sql("/JdbcProductRepositoryTest.sql")
+@Sql("/com/ims/inventorymgmtsys/repository/JdbcProductRepositoryTest.sql")
 public class OrderControllerIntegrationTest {
 
     @Autowired
