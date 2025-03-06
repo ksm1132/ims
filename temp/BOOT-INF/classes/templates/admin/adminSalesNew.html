@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: commonhead('売上管理New')}" ></head>
+<body>
+<div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
+<h1>売上管理New</h1>
+<div th:replace="~{fragments/header-right}"></div>
+<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+    <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
+</div>
+<div th:if="${#authorization.expression('hasRole(''ROLE_USER'') or hasRole(''ROLE_OAUTH2'')')}">
+    <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
+</div>
+<div class="container main-content">
+    <h2>注文別売上グラフ</h2>
+    <canvas id="salesChart" width="800" height="400"></canvas>
+    <script th:inline="javascript">
+        var salesData = /*[[${salesData}]]*/ '[]';
+        var parseData = JSON.parse(salesData);
+
+        var ctx = document.getElementById('salesChart').getContext('2d');
+        var salesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: parseData.map(item => item.ORDER_ID),
+                datasets: [{
+                    label: 'Sales',
+                    data: parseData.map(item => item.total_yen),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    <h2>日次売上グラフ</h2>
+    <canvas id="dailySalesChart" width="800" height="400"></canvas>
+    <script th:inline="javascript">
+        var dailySalesData = /*[[${dailySalesData}]]*/ '[]';
+        var parseData = JSON.parse(dailySalesData);
+
+        var ctx = document.getElementById('dailySalesChart').getContext('2d');
+        var dailySalesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: parseData.map(item => item.DATE),
+                datasets: [{
+                    label: 'DailySales',
+                    data: parseData.map(item => item.TOTAL_DATE_YEN),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</div>
+</body>
+</html>

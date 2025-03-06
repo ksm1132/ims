@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: commonhead('注文管理')}" ></head>
+<body>
+<div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
+<h1>注文管理</h1>
+<div th:replace="~{fragments/header-right}"></div>
+<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+  <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
+</div>
+<div th:if="${#authorization.expression('hasRole(''ROLE_USER'') or hasRole(''ROLE_OAUTH2'')')}">
+  <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
+</div>
+<div class="container main-content">
+  <h2>Order Table</h2>
+  <table>
+    <tr>
+      <th>ORDER_ID(ID)</th>
+      <th>ORDER_DATE_TIME</th>
+      <th>CUSTOMER_NAME</th>
+      <th>EMPLOYEE_NAME</th>
+      <th>PAYMENT_METHOD</th>
+    </tr>
+    <tr th:each="odr:${orderList}">
+      <td><span th:text="${odr.orderId}"></span></td>
+      <td><span th:text="${odr.orderDateTime}"></span></td>
+      <td><span th:text="${odr.customerName}"></span></td>
+      <td><span th:text="${odr.employeeName}"></span></td>
+      <td><span th:text="${odr.paymentMethod}"></span></td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

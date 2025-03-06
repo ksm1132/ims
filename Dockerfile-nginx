@@ -1,0 +1,18 @@
+# NGINXのベースイメージを使用
+FROM nginx:latest
+
+# curlをインストール
+RUN apt-get update && apt-get install -y curl && apt-get clean
+RUN rm /etc/nginx/conf.d/default.conf
+
+# SSL証明書と秘密鍵をコンテナ内の指定したパスにコピー
+COPY ./server.crt /etc/ssl/certs/server.crt
+COPY ./server.key /etc/ssl/private/server.key
+
+# NGINXの設定ファイルをコンテナ内にコピー（もし設定ファイルがある場合）
+COPY ./nginx.conf /etc/nginx/conf.d/nginx.conf
+
+# 必要に応じて、コンテナのCMDを指定（デフォルトのままでも問題ありません）
+CMD ["nginx", "-g", "daemon off;"]
+
+EXPOSE 8888

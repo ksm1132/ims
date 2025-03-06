@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: commonhead('SnowflakeImport')}" ></head>
+<body id="get-snowflake">
+<div th:replace="~{'fragments/header' :: header}"></div>
+<div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
+<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+    <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
+</div>
+<div th:if="${#authorization.expression('hasAnyAuthority(''ROLE_USER'', ''OIDC_USER'')')}">
+    <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
+</div>
+<div id="wrap">
+    <div class="container">
+        <h1 class="icon">Snowflake import</h1>
+        <h2 class="icon2">SnowFlake Connector</h2>
+        <div class="button-container">
+            <button id="exportButton" name="export">Export to CSV</button>
+        </div>
+        <div th:if="${message}" th:text="${message}"></div>
+        <div th:if="${error}" th:text="${error}"></div>
+
+        <div th:if="${snowData != null && !snowData.isEmpty()}">
+            <table border="1" id="dataTable" class="display">
+                <thead>
+                <tr>
+                    <th th:each="header : ${snowData.get(0).keySet()}">
+                        <span th:text="${header}"></span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="row : ${snowData}">
+                    <td th:each="value : ${row.values()}" th:text="${value}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${snowData == null or snowData.isEmpty()}">
+            <p>データが存在しないか、指定したテーブル、スキーマ、DBなどに誤りがあります。</p>
+        </div>
+
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+        $('#exportButton').click(function() {
+            window.location.href = '/external/exportSnowflakeData';
+        });
+    </script>
+    <div class="button-container">
+        <a href="/external/snowflakeinput">Back</a>
+    </div>
+</div>
+<div th:replace="~{'fragments/footer' :: footer}"></div>
+</body>
+</html>

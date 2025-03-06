@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: commonhead('Register')}" ></head>
+<body>
+<div class="register-container">
+    <h1>Register</h1>
+        <form th:action="@{/register}" method="post" class="register-form">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <div>
+                <label for="userName">Username:</label>
+                <input type="text" id="userName" name="userName" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+                <label for="emailAddress">Email Address:</label>
+                <input type="email" id="emailAddress" name="emailAddress" required>
+            </div>
+            <div class="button-container">
+                <input type="submit" value="Sign Up" class="register-button">
+            </div>
+            <div class="login">
+                <a th:href="@{/login}">Return to login</a>
+            </div>
+        </form>
+    <div th:if="${errorMessage}">
+        <p th:text="${errorMessage}" class="error-message"></p>
+    </div>
+</div>
+</body>
+</html>

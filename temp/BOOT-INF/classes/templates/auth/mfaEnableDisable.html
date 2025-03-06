@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+</head>
+<body class="container">
+<table class="table" th:object="${user}">
+    <tr>
+        <th>ID</th>
+        <td th:text="*{id}">
+            <input type="hidden" th:field="*{id}" >
+        </td>
+    </tr>
+    <tr>
+        <th>Username</th>
+        <td th:text="*{userName}" id="username" name="username" ></td>
+    </tr>
+    <tr>
+        <th>2FA Enabled</th>
+        <td>
+            <span th:text="*{mfaEnabled ? 'Yes' : 'No'}"  id="mfaenabled" name="mfaenabled"></span>
+            <span th:if="*{!mfaEnabled}">
+                <br/>
+                <a href="/enable-2fa">Enable 2FA</a>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <th>test</th>
+        <td th:text="*{mfaEnabled}"></td>
+    </tr>
+    <tr>
+        <th>Full User Object</th>
+        <td th:text="${user}"></td>
+    </tr>
+</table>
+<br/>
+<form th:action="@{/logout}" method="post" class="logout-form">
+    <button type="submit" class="logout-button">Logout</button>
+</form>
+
+<div style="text-align: center; margin-top: 10px;">
+<a th:href="@{/user/profile}">戻る</a>
+</div>
+</body>
+</html>

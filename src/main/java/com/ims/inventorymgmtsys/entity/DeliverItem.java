@@ -1,6 +1,5 @@
 package com.ims.inventorymgmtsys.entity;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.io.Serializable;
 

@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: commonhead('SystemInfo')}" ></head>
+<body id="admin-system-info">
+<div th:replace="~{'fragments/header' :: header}"></div>
+<div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
+<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+    <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
+</div>
+<div th:if="${#authorization.expression('hasAnyAuthority(''ROLE_USER'', ''OIDC_USER'')')}">
+    <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
+</div>
+<div id="wrap">
+    <div class="container">
+        <h1 class="icon">SystemInfo</h1>
+        <h2 class="icon2">LoadAverage</h2>
+        <canvas id="systemInfoChart-loadAverage" width="800" height="400"></canvas>
+
+        <h2>UsedHeapMemory</h2>
+        <canvas id="systemInfoChart-usedMemory" width="800" height="400"></canvas>
+
+        <script th:inline="javascript">
+            // JSON データが正しくスクリプトに埋め込まれているか確認
+            var systemInfoData = /*[[${systemInfoData}]]*/ '[]';
+            console.log('Raw systemInfoData:', systemInfoData);
+
+            try {
+                var parseData = JSON.parse(systemInfoData);
+                console.log('Parsed System Info Data:', parseData);
+
+                var labels = parseData.map(item => item.timestamp);
+                var cpuLoad = parseData.map(item => item.systemLoadAverage);
+                var memoryUsed = parseData.map(item => {
+                    var memoryInMB = item.usedHeapMemory / ( 1024 * 1024 );
+                    var memoryInGB = memoryInMB / 1024;
+                    return memoryInGB >= 1 ? memoryInGB.toFixed(2) + ' GB' : memoryInMB.toFixed(2) + ' MB';
+                });
+
+                const ctxLoadAverage = document.getElementById('systemInfoChart-loadAverage').getContext('2d');
+                new Chart(ctxLoadAverage, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'CPU負荷',
+                            data: cpuLoad,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'minute',
+                                    tooltipFormat: 'HH:mm:ss',
+                                    displayFormats: {
+                                        minute: 'HH:mm'
+                                    }
+                                },
+                                title: {
+                                    display: true,
+                                    text: '時間'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'CPU負荷(値)'
+                                }
+                            }
+                        }
+                    }
+                });
+
+                const ctxUsedMemory = document.getElementById('systemInfoChart-usedMemory').getContext('2d');
+                new Chart(ctxUsedMemory, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Memory使用量',
+                            data: parseData.map(item => item.usedHeapMemory / ( 1024 * 1024 )),
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'minute',
+                                    tooltipFormat: 'HH:mm:ss',
+                                    displayFormats: {
+                                        minute: 'HH:mm'
+                                    }
+                                },
+                                title: {
+                                    display: true,
+                                    text: '時間'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Memory使用量'
+                                },
+                                ticks: {
+                                    callback: function(value, index, values) {
+                                        var valueInGB = value / 1024;
+                                        return valueInGB >= 1 ? valueInGB.toFixed(2) + ' GB' : value.toFixed(2) + ' MB';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error parsing systemInfoData:', error);
+            }
+        </script>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile-app
+    ports:
+      - "${APP_HOSTS_PORT}:8080"
+    env_file:
+      - .env
+    depends_on:
+      - db
+    networks:
+      - my-network
+
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile-postgres
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "${DB_HOSTS_PORT}:5432"
+    networks:
+      - my-network
+
+networks:
+  my-network:

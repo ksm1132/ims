@@ -34,3 +34,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+#### Docker ###
+*.env
+.envbackup
+
+*.crt
+*.key.envbackup
+*.csr
+*.key

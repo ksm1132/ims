@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: commonhead('注文履歴')}" ></head>
+<body id="order-list">
+<div th:replace="~{'fragments/header' :: header}"></div>
+<div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
+<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+    <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
+</div>
+<div th:if="${#authorization.expression('hasAnyAuthority(''ROLE_USER'', ''OIDC_USER'')')}">
+    <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
+</div>
+<div id="wrap">
+    <div class="container">
+        <h1 class="icon">注文履歴</h1>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <table class="horizontal-tbl">
+            <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Order Date</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order: ${orderlist}">
+                <td th:text="${order.orderId}"></td>
+                <td th:text="${order.orderDateTime}"></td>
+                <td th:text="${order.productName}"></td>
+                <td th:text="${order.quantity}"></td>
+                <td th:text="${order.price}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div th:replace="~{'fragments/footer' :: footer}"></div>
+</body>
+</html>

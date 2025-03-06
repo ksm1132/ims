@@ -1,0 +1,44 @@
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    ports:
+      - "${NGINX_HOSTS_PORT}:8888"   # HTTP
+      - "${NGINX_SSL_PORT}:18443"     # HTTPS
+    env_file:
+      - .env
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf  # Nginx設定ファイルのマウント
+    depends_on:
+      - app
+      - db
+    networks:
+      - my-network
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile-app
+    ports:
+      - "${APP_HOSTS_PORT}:8080"
+    env_file:
+      - .env
+    depends_on:
+      - db
+    networks:
+      - my-network
+
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile-postgres
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "${DB_HOSTS_PORT}:5432"
+    networks:
+      - my-network
+
+networks:
+  my-network:

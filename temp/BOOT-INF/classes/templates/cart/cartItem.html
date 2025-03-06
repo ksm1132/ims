@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: commonhead('ショッピングカート')}" ></head>
+<body>
+<div th:replace="~{'fragments/hamburger-menu' :: hamburgerMenu}"></div>
+<h1>ショッピングカート</h1>
+<div th:replace="~{fragments/header-right}"></div>
+<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+    <div th:replace="~{'fragments/sidebar' :: sidebar}"></div>
+</div>
+<div th:if="${#authorization.expression('hasRole(''ROLE_USER'') or hasRole(''ROLE_OAUTH2'')')}">
+    <div th:replace="~{'fragments/sidebar-user' :: sidebar-user}"></div>
+</div>
+<div class="container">
+        <table>
+            <tr>
+                <th>商品名</th>
+                <th>価格</th>
+                <th>数量</th>
+                <th>操作</th>
+            </tr>
+            <tr th:each="item:${cartInput.cartItemInputs}">
+                <td><span th:text="${item.productName}"></span></td>
+                <td><span th:text="${item.productPrice}"></span>円</td>
+<!--                <td><span th:text="${item.quantity}"></span></td>-->
+                <td>
+                    <form th:action="@{/cart/update-quantity}" method="post">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <input type="hidden" name="cartItemId" th:value="${item.id}">
+                        <input type="number" name="quantity" th:value="${item.quantity}" min="1" required class="quantity-input">
+                        <input type="submit" value="更新">
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/cart/remove-item}" method="post">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <input type="hidden" name="cartItemId" th:value="${item.id}">
+                        <input type="submit" value="カートから削除">
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+    <div class="summary-text">
+        <div >合計金額<span th:text="${cartInput.totalAmount}"></span>円</div>
+        <div >請求金額<span th:text="${cartInput.billingAmount}"></span>円(税込)</div>
+        <form th:if="${cartInput.cartItemInputs.size() > 0}" th:action="@{/order/orderform}" method="get">
+            <input class="placeorder" type="submit" value="注文する">
+        </form>
+    </div>
+    <div class="back-link">
+        <a th:href="@{/catalog/list}">商品一覧に戻る</a>
+    </div>
+</div>
+</body>
+</html>
